@@ -1,5 +1,7 @@
 package br.dev.rodrigpinheiro.AlertaComunidade.queue;
 
+import br.dev.rodrigpinheiro.AlertaComunidade.config.RabbitMQConfig;
+import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertType;
 import br.dev.rodrigpinheiro.AlertaComunidade.model.AlertNotification;
 import org.hibernate.annotations.Comment;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,14 +21,33 @@ public class AlertPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    // Envia o alerta para a fila, via exchange + routing key
     public void sendToQueue(AlertNotification alert) {
-        rabbitTemplate.convertAndSend(
-                "alerts.exchange",      // Nome da exchange (configurada em RabbitMQConfig)
-                "alerts.routingkey",    // Routing key definida na binding
-                alert                   // Objeto que será serializado e enviado
-        );
-        logger.info("Alerta enviado à fila com ID {} e tipo {}", alert.getId(), alert.getAlertType());
+        String routingKey = resolveRoutingKey(alert.getAlertType());
 
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE,
+                routingKey,
+                alert
+        );
+
+        logger.info("Alerta enviado para a exchange [{}] com routingKey [{}]. ID: {}, Tipo: {}",
+                RabbitMQConfig.EXCHANGE, routingKey, alert.getId(), alert.getAlertType());
+    }
+    private String resolveRoutingKey(AlertType alertType) {
+        if (alertType == null) return RabbitMQConfig.LOG_ROUTING_KEY;
+
+        switch (alertType) {
+            case FIRE:
+            case FLOOD:
+            case CRIME:
+                return RabbitMQConfig.CRITICAL_ROUTING_KEY;
+
+            case WEATHER:
+            case MEDICAL:
+                return RabbitMQConfig.NORMAL_ROUTING_KEY;
+
+            default:
+                return RabbitMQConfig.LOG_ROUTING_KEY;
+        }
     }
 }
