@@ -1,6 +1,7 @@
 package br.dev.rodrigpinheiro.AlertaComunidade.mapper;
 
 import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertRequestDTO;
+import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertResponseDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertStatus;
 import br.dev.rodrigpinheiro.AlertaComunidade.model.AlertNotification;
 
@@ -22,5 +23,16 @@ public class AlertMapper {
         // regra de negócio aplicada aqui
         entity.setStatus(AlertStatus.RECEIVED);
         return entity;
+    }
+
+    public static AlertResponseDTO toResponseDTO(AlertNotification alertNotification) {
+        return new AlertResponseDTO(
+                alertNotification.getId(),
+                alertNotification.getMessage(),
+                alertNotification.getOrigin(),
+                alertNotification.getAlertType(),
+                alertNotification.getStatus(),
+                alertNotification.getCreatedAt()
+        );
     }
 }

@@ -1,13 +1,15 @@
 package br.dev.rodrigpinheiro.AlertaComunidade.controller;
 
 import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertRequestDTO;
+import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertResponseDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.service.AlertService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/alerts")
@@ -23,5 +25,16 @@ public class AlertController {
     public ResponseEntity<Void> receiveAlert(@Valid @RequestBody AlertRequestDTO dto) {
         alertService.processAlert(dto);
         return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping
+    public Page<AlertResponseDTO> listAlerts(
+            @PageableDefault(
+                        size = 10,
+                        sort = "createdAt",
+                        direction = Sort.Direction.DESC)
+                        Pageable pageable
+                        ) {
+        return alertService.getAllAlerts(pageable);
     }
 }
