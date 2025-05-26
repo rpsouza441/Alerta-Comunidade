@@ -18,22 +18,16 @@ public class AlertRequestDTO {
     @NotNull(message = "O tipo de alerta é obrigatório.")
     private AlertType alertType;
 
-    @NotNull
-    private AlertStatus status;
 
-    @NotNull
-    private LocalDateTime createdAt;
 
     public AlertRequestDTO() {
     }
 
 
-    public AlertRequestDTO(String message, String origin, AlertType alertType, AlertStatus status, LocalDateTime createdAt) {
+    public AlertRequestDTO(String message, String origin, AlertType alertType) {
         this.message = message;
         this.origin = origin;
         this.alertType = alertType;
-        this.status = status;
-        this.createdAt = createdAt;
     }
 
     public @NotBlank String getMessage() {
@@ -60,19 +54,4 @@ public class AlertRequestDTO {
         this.alertType = alertType;
     }
 
-    public @NotNull AlertStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(@NotNull AlertStatus status) {
-        this.status = status;
-    }
-
-    public @NotNull LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(@NotNull LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

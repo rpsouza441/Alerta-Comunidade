@@ -31,6 +31,10 @@ public class AlertNotification {
     @Column(name = "status", nullable = false)
     private AlertStatus status;
 
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public AlertNotification() {
     }
