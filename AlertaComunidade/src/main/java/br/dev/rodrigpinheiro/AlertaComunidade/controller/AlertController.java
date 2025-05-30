@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,9 @@ public class AlertController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> receiveAlert(@Valid @RequestBody AlertRequestDTO dto) {
+    public ResponseEntity<?> receiveAlert(@Valid @RequestBody AlertRequestDTO dto) {
         alertService.processAlert(dto);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
@@ -36,5 +37,11 @@ public class AlertController {
                         Pageable pageable
                         ) {
         return alertService.getAllAlerts(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AlertResponseDTO> getAlertbyId(@PathVariable Long id) {
+        AlertResponseDTO alertResponseDTO = alertService.getAlertById(id);
+        return  ResponseEntity.ok(alertResponseDTO);
     }
 }

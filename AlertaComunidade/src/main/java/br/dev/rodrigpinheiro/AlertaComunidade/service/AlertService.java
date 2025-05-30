@@ -3,6 +3,7 @@ package br.dev.rodrigpinheiro.AlertaComunidade.service;
 import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertRequestDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertResponseDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertStatus;
+import br.dev.rodrigpinheiro.AlertaComunidade.exception.ResourceNotFoundException;
 import br.dev.rodrigpinheiro.AlertaComunidade.mapper.AlertMapper;
 import br.dev.rodrigpinheiro.AlertaComunidade.model.AlertNotification;
 import br.dev.rodrigpinheiro.AlertaComunidade.queue.AlertPublisher;
@@ -22,12 +23,20 @@ public class AlertService {
     }
 
     public void processAlert(AlertRequestDTO dto){
-        AlertNotification entity = AlertMapper.toEntity(dto); // uso do mapper
+        AlertNotification entity = AlertMapper.toEntity(dto);
         repository.save(entity);
         publisher.sendToQueue(entity);
     }
 
     public Page<AlertResponseDTO> getAllAlerts(Pageable pageable){
         return repository.findAll(pageable).map(AlertMapper::toResponseDTO);
+    }
+
+    public AlertResponseDTO getAlertById(Long id){
+        AlertNotification entity = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Alerta com ID: "+ id + " não encontrada"));
+
+        return AlertMapper.toResponseDTO(entity);
     }
 }

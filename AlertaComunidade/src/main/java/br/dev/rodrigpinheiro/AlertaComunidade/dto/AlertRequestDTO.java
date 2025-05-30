@@ -1,24 +1,27 @@
 package br.dev.rodrigpinheiro.AlertaComunidade.dto;
 
-import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertStatus;
 import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
 
+@JsonIgnoreProperties(ignoreUnknown = false)
 public class AlertRequestDTO {
 
+    @Size(min = 1, max = 50, message = "A mensagem do alerta deve ter entre 1 e 50 caracteres.")
     @NotBlank(message = "A mensagem do alerta é obrigatória.")
     private String message;
 
+
+    @Pattern(regexp = "^[A-Z]{4,10}$", message = "Deve conter apenas letras maiúsculas entre 4 e 10 caracteres.")
     @NotBlank(message = "A origem do alerta é obrigatória.")
     private String origin;
 
     @NotNull(message = "O tipo de alerta é obrigatório.")
     private AlertType alertType;
-
-
 
     public AlertRequestDTO() {
     }
@@ -30,27 +33,27 @@ public class AlertRequestDTO {
         this.alertType = alertType;
     }
 
-    public @NotBlank String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(@NotBlank String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public @NotBlank String getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(@NotBlank String origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    public @NotNull(message = "O tipo de alerta é obrigatório.") AlertType getAlertType() {
+    public AlertType getAlertType() {
         return alertType;
     }
 
-    public void setAlertType(@NotNull(message = "O tipo de alerta é obrigatório.") AlertType alertType) {
+    public void setAlertType(AlertType alertType) {
         this.alertType = alertType;
     }
 
