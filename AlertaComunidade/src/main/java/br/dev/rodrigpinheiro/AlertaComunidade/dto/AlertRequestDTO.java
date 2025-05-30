@@ -3,12 +3,10 @@ package br.dev.rodrigpinheiro.AlertaComunidade.dto;
 import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
-@JsonIgnoreProperties(ignoreUnknown = false)
 public class AlertRequestDTO {
 
     @Size(min = 1, max = 50, message = "A mensagem do alerta deve ter entre 1 e 50 caracteres.")
