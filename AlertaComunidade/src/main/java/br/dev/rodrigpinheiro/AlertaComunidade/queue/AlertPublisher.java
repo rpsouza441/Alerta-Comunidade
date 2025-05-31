@@ -3,7 +3,7 @@ package br.dev.rodrigpinheiro.AlertaComunidade.queue;
 import br.dev.rodrigpinheiro.AlertaComunidade.config.RabbitMQConfig;
 import br.dev.rodrigpinheiro.AlertaComunidade.enums.AlertType;
 import br.dev.rodrigpinheiro.AlertaComunidade.model.AlertNotification;
-import org.hibernate.annotations.Comment;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -24,15 +24,20 @@ public class AlertPublisher {
     public void sendToQueue(AlertNotification alert) {
         String routingKey = resolveRoutingKey(alert.getAlertType());
 
-        rabbitTemplate.convertAndSend(
-                RabbitMQConfig.EXCHANGE,
-                routingKey,
-                alert
-        );
-
-        logger.info("Alerta enviado para a exchange [{}] com routingKey [{}]. ID: {}, Tipo: {}",
-                RabbitMQConfig.EXCHANGE, routingKey, alert.getId(), alert.getAlertType());
+        try {
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConfig.EXCHANGE,
+                    routingKey,
+                    alert
+            );
+            logger.info("Alerta enviado para a exchange [{}] com routingKey [{}]. ID: {}, Tipo: {}",
+                    RabbitMQConfig.EXCHANGE, routingKey, alert.getId(), alert.getAlertType());
+        } catch (Exception e) {
+            logger.error("Erro ao enviar alerta para a fila - ID: {} - Motivo: {}", alert.getId(), e.getMessage(), e);
+            throw e;
+        }
     }
+
     private String resolveRoutingKey(AlertType alertType) {
         if (alertType == null) return RabbitMQConfig.LOG_ROUTING_KEY;
 

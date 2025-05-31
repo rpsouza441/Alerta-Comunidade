@@ -20,7 +20,6 @@ public class AlertMapper {
         entity.setMessage(dto.getMessage());
         entity.setOrigin(dto.getOrigin());
         entity.setAlertType(dto.getAlertType());
-        // regra de negócio aplicada aqui
         entity.setStatus(AlertStatus.RECEIVED);
         return entity;
     }

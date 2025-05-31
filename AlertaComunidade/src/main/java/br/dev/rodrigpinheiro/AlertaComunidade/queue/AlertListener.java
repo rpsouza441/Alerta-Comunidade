@@ -25,19 +25,34 @@ public class AlertListener {
     @RabbitListener(queues = CRITICAL_QUEUE)
     public void receiveCritical(@Payload AlertNotification alert) {
         logger.info("[CRITICAL] Alerta recebido: {} - Tipo: {}", alert.getMessage(), alert.getAlertType());
-        alert.setStatus(AlertStatus.DELIVERED);
-        repository.save(alert);
+        try {
+            alert.setStatus(AlertStatus.DELIVERED);
+            repository.save(alert);
+        } catch (Exception e) {
+            logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
     @RabbitListener(queues = NORMAL_QUEUE)
     public void receiveNormal(@Payload AlertNotification alert) {
         logger.info("[Normal] Alerta recebido: {} - Tipo: {}", alert.getMessage(), alert.getAlertType());
-        alert.setStatus(AlertStatus.DELIVERED);
-        repository.save(alert);
+        try {
+            alert.setStatus(AlertStatus.DELIVERED);
+            repository.save(alert);
+        } catch (Exception e) {
+            logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
     @RabbitListener(queues = LOG_QUEUE)
     public void receiveLog(@Payload AlertNotification alert) {
         logger.info("[LOG] Alerta registrado para fins internos: {}", alert.getMessage());
-        alert.setStatus(AlertStatus.DELIVERED);
-        repository.save(alert);
+        try {
+            alert.setStatus(AlertStatus.DELIVERED);
+            repository.save(alert);
+        } catch (Exception e) {
+            logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
 }

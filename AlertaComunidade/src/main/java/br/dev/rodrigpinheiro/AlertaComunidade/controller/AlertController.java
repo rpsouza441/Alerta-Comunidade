@@ -4,6 +4,8 @@ import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertRequestDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.dto.AlertResponseDTO;
 import br.dev.rodrigpinheiro.AlertaComunidade.service.AlertService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AlertController {
 
     private final AlertService alertService;
+    private static final Logger logger = LoggerFactory.getLogger(AlertController.class);
 
     public AlertController(AlertService alertService) {
         this.alertService = alertService;
@@ -24,6 +27,7 @@ public class AlertController {
 
     @PostMapping
     public ResponseEntity<?> receiveAlert(@Valid @RequestBody AlertRequestDTO dto) {
+        logger.info("POST /alerts - origin={}, type={}", dto.getOrigin(), dto.getAlertType());
         alertService.processAlert(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -36,11 +40,16 @@ public class AlertController {
                         direction = Sort.Direction.DESC)
                         Pageable pageable
                         ) {
+        logger.info("GET /alerts");
+
+
         return alertService.getAllAlerts(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlertResponseDTO> getAlertbyId(@PathVariable Long id) {
+        logger.info("GET /alerts - ID={}", id);
+
         AlertResponseDTO alertResponseDTO = alertService.getAlertById(id);
         return  ResponseEntity.ok(alertResponseDTO);
     }

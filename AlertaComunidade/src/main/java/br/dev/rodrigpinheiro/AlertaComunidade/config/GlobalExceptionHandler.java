@@ -2,23 +2,25 @@ package br.dev.rodrigpinheiro.AlertaComunidade.config;
 
 import br.dev.rodrigpinheiro.AlertaComunidade.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> resourceNotFound(ResourceNotFoundException e) {
+        logger.warn("Resource not found - Error: {}", e.getMessage());
         return ResponseEntity.status(404).body(
                 Map.of(
                         "timestamp", LocalDateTime.now(),
@@ -29,13 +31,15 @@ public class GlobalExceptionHandler {
         );
     }
 
-    public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException e) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> methodArgumentNotValid(MethodArgumentNotValidException e) {
+        logger.warn("Method Argument Not Valid - Error: {}", e.getMessage());
         Map<String, String> errors = e.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(
-                    fieldError -> fieldError.getField(),
-                    fieldError -> fieldError.getDefaultMessage(),
+                        fieldError -> fieldError.getField(),
+                        fieldError -> fieldError.getDefaultMessage(),
                         (msg1, msg2) -> msg1
                 ));
         return ResponseEntity.status(400).body(
@@ -51,7 +55,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnrecognizedPropertyException.class)
-    public ResponseEntity<Object> handleValidationException(UnrecognizedPropertyException e) {
+    public ResponseEntity<Object> unrecognizedProperty(UnrecognizedPropertyException e) {
+        logger.warn("Unrecognized Property - Error: {}", e.getMessage());
         return ResponseEntity.status(400).body(
                 Map.of(
                         "timestamp", LocalDateTime.now(),
