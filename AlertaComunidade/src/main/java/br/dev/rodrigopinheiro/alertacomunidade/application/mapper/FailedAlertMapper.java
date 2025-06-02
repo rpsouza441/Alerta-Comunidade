@@ -15,6 +15,7 @@ public class FailedAlertMapper {
         failed.setAlertType(alert.getAlertType());
         failed.setStatus(AlertStatus.FAILED);
         failed.setErrorMessage(errorMessage);
+        failed.setCreatedAt(alert.getCreatedAt());
         return failed;
     }
 
