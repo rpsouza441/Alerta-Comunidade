@@ -1,5 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
+import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.slf4j.Logger;
@@ -64,6 +65,19 @@ public class GlobalExceptionHandler {
                         "error", "Campo inválido no JSON",
                         "message", "Campo não reconhecido: " + e.getPropertyName(),
                         "path", "/alerts"
+                )
+        );
+    }
+
+    @ExceptionHandler(FailedAlertNotFoundException.class)
+    public ResponseEntity<Object> failedAlertNotFound(FailedAlertNotFoundException e) {
+        logger.warn("Falha ao reprocessar alerta - Erro: {}", e.getMessage());
+        return ResponseEntity.status(404).body(
+                Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", 404,
+                        "error", "Alerta com falha não encontrado",
+                        "message", e.getMessage()
                 )
         );
     }

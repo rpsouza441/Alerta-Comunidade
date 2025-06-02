@@ -14,6 +14,9 @@ public class FailedAlertNotification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "original_id")
+    private Long originalId;
+
     @Column(name = "message", nullable = false)
     private String message;
 
@@ -37,12 +40,16 @@ public class FailedAlertNotification {
     @Column(name = "failed_at", nullable = false, updatable = false)
     private LocalDateTime failedAt = LocalDateTime.now();
 
+    @Column(name = "reprocessed_at")
+    private LocalDateTime reprocessedAt;
+
 
     public FailedAlertNotification() {
     }
 
-    public FailedAlertNotification(Long id, String message, String origin, AlertType alertType, LocalDateTime createdAt, AlertStatus status, String errorMessage, LocalDateTime failedAt) {
+    public FailedAlertNotification(Long id, Long originalId, String message, String origin, AlertType alertType, LocalDateTime createdAt, AlertStatus status, String errorMessage, LocalDateTime failedAt, LocalDateTime reprocessedAt) {
         this.id = id;
+        this.originalId = originalId;
         this.message = message;
         this.origin = origin;
         this.alertType = alertType;
@@ -50,6 +57,7 @@ public class FailedAlertNotification {
         this.status = status;
         this.errorMessage = errorMessage;
         this.failedAt = failedAt;
+        this.reprocessedAt = reprocessedAt;
     }
 
     public Long getId() {
@@ -114,5 +122,21 @@ public class FailedAlertNotification {
 
     public void setFailedAt(LocalDateTime failedAt) {
         this.failedAt = failedAt;
+    }
+
+    public Long getOriginalId() {
+        return originalId;
+    }
+
+    public void setOriginalId(Long originalId) {
+        this.originalId = originalId;
+    }
+
+    public LocalDateTime getReprocessedAt() {
+        return reprocessedAt;
+    }
+
+    public void setReprocessedAt(LocalDateTime reprocessedAt) {
+        this.reprocessedAt = reprocessedAt;
     }
 }

@@ -5,6 +5,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRep
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataFailedAlertRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class JpaFailedAlertRepository implements FailedAlertRepositoryPort {
 
@@ -17,5 +20,15 @@ public class JpaFailedAlertRepository implements FailedAlertRepositoryPort {
     @Override
     public FailedAlertNotification save(FailedAlertNotification failed) {
         return delegate.save(failed);
+    }
+
+    @Override
+    public List<FailedAlertNotification> findAll() {
+        return delegate.findAll();
+    }
+
+    @Override
+    public Optional<FailedAlertNotification> findBydId(Long id) {
+        return delegate.findById(id);
     }
 }
