@@ -30,10 +30,21 @@ public class RabbitMQConfig {
     public static final String NORMAL_ROUTING_KEY = "alerts.normal";
     public static final String LOG_ROUTING_KEY = "alerts.log";
 
-    // Exchange do tipo Direct (baseado em routing key exata)
+    public static final String DEAD_LETTER_EXCHANGE = "dead.exchange";
+    public static final String DEAD_LETTER_ROUTING_KEY_CRITICAL = "dead.critical";
+    public static final String DEAD_LETTER_ROUTING_KEY_NORMAL = "dead.normal";
+    public static final String DEAD_CRITICAL_QUEUE = "dead.critical.queue";
+    public static final String DEAD_NORMAL_QUEUE = "dead.normal.queue";
+
+
     @Bean
     public DirectExchange alertsExchange() {
         return new DirectExchange(EXCHANGE);
+    }
+
+    @Bean
+    public DirectExchange deadLetterExchange() {
+        return new DirectExchange(DEAD_LETTER_EXCHANGE);
     }
 
     // === FILA com suporte a prioridade ===
@@ -41,12 +52,28 @@ public class RabbitMQConfig {
     public Queue criticalQueue() {
         Map<String, Object> args = new HashMap<>();
         args.put("x-max-priority", 10); // Prioridade de 0 a 10
+        args.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);
+        args.put("x-dead-letter-routing-key", DEAD_LETTER_ROUTING_KEY_CRITICAL);
         return new Queue(CRITICAL_QUEUE, true, false, false, args);
     }
 
     @Bean
+    public Queue criticalDlq() {
+        return new Queue(DEAD_CRITICAL_QUEUE, true, false, false);
+    }
+
+    @Bean
     public Queue normalQueue() {
-        return new Queue(NORMAL_QUEUE, true);
+        Map<String, Object> args = new HashMap<>();
+        args.put("x-max-priority", 5); // Prioridade de 0 a 10
+        args.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);
+        args.put("x-dead-letter-routing-key", DEAD_LETTER_ROUTING_KEY_NORMAL);
+        return new Queue(NORMAL_QUEUE, true,false, false,args);
+    }
+
+    @Bean
+    public Queue normalDlq() {
+        return new Queue(DEAD_NORMAL_QUEUE, true, false, false);
     }
 
     @Bean
@@ -55,7 +82,6 @@ public class RabbitMQConfig {
     }
 
     // === Bindings ===
-
     @Bean
     public Binding criticalBinding() {
         return BindingBuilder.bind(criticalQueue())
@@ -64,10 +90,23 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Binding deadLetterCriticalBinding() {
+        return BindingBuilder.bind(criticalDlq())
+                .to(deadLetterExchange())
+                .with(DEAD_LETTER_ROUTING_KEY_CRITICAL);
+    }
+
+    @Bean
     public Binding normalBinding() {
         return BindingBuilder.bind(normalQueue())
                 .to(alertsExchange())
                 .with(NORMAL_ROUTING_KEY);
+    }
+    @Bean
+    public Binding deadLetterNormalBinding() {
+        return BindingBuilder.bind(normalDlq())
+                .to(deadLetterExchange())
+                .with(DEAD_LETTER_ROUTING_KEY_NORMAL);
     }
 
     @Bean
@@ -90,7 +129,6 @@ public class RabbitMQConfig {
             builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         };
     }
-
 
     // Template de envio de mensagens
     @Bean
