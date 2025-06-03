@@ -40,7 +40,7 @@ public class FailedAlertController {
 
     @PostMapping("/{id}/reprocess")
     public ResponseEntity<String> reprocess(@PathVariable Long id){
-         try {
+        try {
             reprocessFailedAlertUseCasePort.execute(id);
             return ResponseEntity.ok("Alerta reenviado com sucesso para a fila");
         } catch (FailedAlertNotFoundException e) {
@@ -50,5 +50,6 @@ public class FailedAlertController {
         }
 
     }
+
 
 }

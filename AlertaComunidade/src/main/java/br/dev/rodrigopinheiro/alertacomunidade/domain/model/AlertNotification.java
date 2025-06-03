@@ -3,6 +3,8 @@ package br.dev.rodrigopinheiro.alertacomunidade.domain.model;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -14,19 +16,24 @@ public class AlertNotification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "message", nullable = false)
     private String message;
 
+    @NotBlank
     @Column(name = "origin", nullable = false)
     private String origin;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "alert_type", nullable = false)
     private AlertType alertType;
 
+    @NotNull
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AlertStatus status;

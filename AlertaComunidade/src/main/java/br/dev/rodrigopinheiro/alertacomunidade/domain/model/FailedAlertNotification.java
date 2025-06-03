@@ -3,6 +3,8 @@ package br.dev.rodrigopinheiro.alertacomunidade.domain.model;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -17,32 +19,43 @@ public class FailedAlertNotification {
     @Column(name = "original_id")
     private Long originalId;
 
+    @NotBlank
     @Column(name = "message", nullable = false)
     private String message;
 
+    @NotBlank
     @Column(name = "origin", nullable = false)
     private String origin;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "alert_type", nullable = false)
     private AlertType alertType;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AlertStatus status;
 
+    @NotNull
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotBlank
     @Column(name = "error_message", nullable = false, length = 1000)
     private String errorMessage;
 
+    @NotNull
     @Column(name = "failed_at", nullable = false, updatable = false)
-    private LocalDateTime failedAt = LocalDateTime.now();
+    private LocalDateTime failedAt;
 
     @Column(name = "reprocessed_at")
     private LocalDateTime reprocessedAt;
 
+    @PrePersist
+    public void prePersist() {
+        this.failedAt = LocalDateTime.now();
+    }
 
     public FailedAlertNotification() {
     }

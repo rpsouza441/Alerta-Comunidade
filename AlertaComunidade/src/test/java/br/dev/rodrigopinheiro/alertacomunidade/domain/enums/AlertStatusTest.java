@@ -2,27 +2,31 @@ package br.dev.rodrigopinheiro.alertacomunidade.domain.enums;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AlertStatusTest {
 
     @Test
-    void testAllEnumValuesArePresent() {
-        assertNotNull(AlertStatus.valueOf("RECEIVED"));
-        assertNotNull(AlertStatus.valueOf("SENT_TO_QUEUE"));
-        assertNotNull(AlertStatus.valueOf("DELIVERED"));
-        assertNotNull(AlertStatus.valueOf("FAILED"));
-        assertNotNull(AlertStatus.valueOf("REPROCESSED"));
+    void shouldContainAllExpectedEnumValues() {
+        AlertStatus[] values = AlertStatus.values();
+
+        assertThat(values).containsExactlyInAnyOrder(
+                AlertStatus.RECEIVED,
+                AlertStatus.SENT_TO_QUEUE,
+                AlertStatus.DELIVERED,
+                AlertStatus.FAILED,
+                AlertStatus.REPROCESSED
+        );
     }
 
     @Test
-    void testEnumToString() {
-        assertEquals("RECEIVED", AlertStatus.RECEIVED.toString());
-        assertEquals("FAILED", AlertStatus.FAILED.toString());
+    void shouldMatchEnumNames() {
+        assertThat(AlertStatus.RECEIVED.name()).isEqualTo("RECEIVED");
+        assertThat(AlertStatus.FAILED.name()).isEqualTo("FAILED");
     }
 
     @Test
-    void testEnumValuesLength() {
-        assertEquals(5, AlertStatus.values().length);
+    void shouldHaveExactlyFiveEnumConstants() {
+        assertThat(AlertStatus.values()).hasSize(5);
     }
 }
