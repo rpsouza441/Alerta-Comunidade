@@ -81,4 +81,30 @@ public class GlobalExceptionHandler {
                 )
         );
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
+        logger.error("Erro interno inesperado", e);
+        return ResponseEntity.status(500).body(
+                Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", 500,
+                        "error", "Internal Server Error",
+                        "message", "Erro interno ao processar a requisição."
+                )
+        );
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgument(IllegalArgumentException e) {
+        logger.warn("Erro de argumento inválido: {}", e.getMessage());
+        return ResponseEntity.status(400).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "status", 400,
+                "error", "Bad Request",
+                "message", e.getMessage()
+        ));
+    }
+
+
 }

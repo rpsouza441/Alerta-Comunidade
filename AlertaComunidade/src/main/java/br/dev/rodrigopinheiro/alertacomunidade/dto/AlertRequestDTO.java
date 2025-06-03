@@ -13,7 +13,6 @@ public class AlertRequestDTO {
     @NotBlank(message = "A mensagem do alerta é obrigatória.")
     private String message;
 
-
     @Pattern(regexp = "^[A-Z]{4,10}$", message = "Deve conter apenas letras maiúsculas entre 4 e 10 caracteres.")
     @NotBlank(message = "A origem do alerta é obrigatória.")
     private String origin;
