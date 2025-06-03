@@ -9,7 +9,7 @@ spring:
   # JPA (Hibernate) configuration
   jpa:
     hibernate:
-      ddl-auto: none # Important: Let Flyway manage schema, not Hibernate
+      ddl-auto: create-drop # Important: Let Flyway manage schema, not Hibernate
     show-sql: true # Log SQL queries to console
     properties:
       hibernate:
@@ -18,11 +18,8 @@ spring:
 
   # Flyway configuration
   flyway:
-    enabled: true # Ensure Flyway is enabled for tests
-    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE
-    locations: classpath:db/migration # Default location for migration scripts. Adjust if yours differ
-    baseline-on-migrate: true # Recommended for existing databases, creates schema_version table if missing
-    validate-on-migrate: true
+    enabled: false # Ensure Flyway is enabled for tests
+
   # H2 Console (for debugging during development, not usually needed for automated tests)
   h2:
     console:

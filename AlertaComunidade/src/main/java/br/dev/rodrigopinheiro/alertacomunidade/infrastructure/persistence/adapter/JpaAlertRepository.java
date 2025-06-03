@@ -4,12 +4,9 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapt
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataAlertRepository;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.TransactionSystemException;
 
 import java.util.Optional;
 
