@@ -1,0 +1,30 @@
+spring:
+  # DataSource configuration for H2 in-memory database
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # JPA (Hibernate) configuration
+  jpa:
+    hibernate:
+      ddl-auto: none # Important: Let Flyway manage schema, not Hibernate
+    show-sql: true # Log SQL queries to console
+    properties:
+      hibernate:
+        format_sql: true # Format logged SQL for readability
+        dialect: org.hibernate.dialect.H2Dialect # Specify H2 dialect for Hibernate
+
+  # Flyway configuration
+  flyway:
+    enabled: true # Ensure Flyway is enabled for tests
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE
+    locations: classpath:db/migration # Default location for migration scripts. Adjust if yours differ
+    baseline-on-migrate: true # Recommended for existing databases, creates schema_version table if missing
+    validate-on-migrate: true
+  # H2 Console (for debugging during development, not usually needed for automated tests)
+  h2:
+    console:
+      enabled: true # Enable H2 console for easy inspection
+      path: /h2-console # Access at http://localhost:8080/h2-console (or your app's port)
