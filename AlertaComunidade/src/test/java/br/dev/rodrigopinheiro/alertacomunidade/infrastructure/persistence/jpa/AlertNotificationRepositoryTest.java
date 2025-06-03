@@ -4,7 +4,6 @@ import br.dev.rodrigopinheiro.alertacomunidade.AlertaComunidadeApplication;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataAlertRepository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
