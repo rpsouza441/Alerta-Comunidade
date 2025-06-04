@@ -30,18 +30,14 @@ class AlertNotificationRepositoryTest {
     @Test
     @DisplayName("Deve persistir alerta com sucesso")
     void shouldPersistAlert() {
-        AlertNotification alert = new AlertNotification();
-        alert.setMessage("Teste de alerta");
-        alert.setOrigin("INMET");
-        alert.setAlertType(AlertType.FIRE);
-        alert.setStatus(AlertStatus.RECEIVED);
-        alert.setCreatedAt(LocalDateTime.now());
+        AlertNotification alert = createValidAlert("Teste de alerta", "INMET");
 
         AlertNotification saved = repository.save(alert);
 
         assertThat(saved.getId()).isNotNull();
         assertThat(saved.getMessage()).isEqualTo("Teste de alerta");
     }
+
 
     @Test
     @DisplayName("Deve falhar ao persistir alerta com campos obrigatórios ausentes")
@@ -52,5 +48,14 @@ class AlertNotificationRepositoryTest {
         org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
             repository.saveAndFlush(alert);
         });
+    }
+    private static AlertNotification createValidAlert(String message, String origin) {
+        AlertNotification alert = new AlertNotification();
+        alert.setMessage(message);
+        alert.setOrigin(origin);
+        alert.setAlertType(AlertType.FIRE);
+        alert.setStatus(AlertStatus.RECEIVED);
+        alert.setCreatedAt(LocalDateTime.now());
+        return alert;
     }
 }
