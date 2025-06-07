@@ -14,7 +14,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import java.time.LocalDateTime;
 
@@ -133,45 +132,6 @@ public class RabbitAlertListenerTest {
         assertThat(failed.getStatus()).isEqualTo(AlertStatus.FAILED);
         assertThat(failed.getErrorMessage()).contains("Banco indisponível");
     }
-
-    @Test
-    void shouldRetryOnFailureAndEventuallyRecover() {
-        // given
-        AlertNotification alert = createAlert(
-                100L,
-                "Teste de Retry",
-                "Teste",
-                AlertType.FIRE,
-                AlertStatus.RECEIVED
-        );
-
-        Throwable rootCause = new RuntimeException("Erro real do banco");
-        AlertProcessingException exception = new AlertProcessingException("Banco indisponível", rootCause);
-
-
-        // simula que as 3 tentativas falharam (não podemos testar diretamente @Retryable aqui)
-        for (int i = 0; i < 3; i++) {
-            try {
-                listener.receiveCritical(alert);
-            } catch (AlertProcessingException ignored) {
-                // esperamos falha
-            }
-        }
-
-        // when: chamada explícita ao recover
-        listener.recover(exception, alert);
-
-        // then
-        verify(failedARepository).save(failedCaptor.capture());
-
-        FailedAlertNotification failed = failedCaptor.getValue();
-        assertThat(failed.getOriginalId()).isEqualTo(alert.getId());
-        assertThat(failed.getStatus()).isEqualTo(AlertStatus.FAILED);
-        assertThat(failed.getErrorMessage()).contains("Banco indisponível");
-    }
-
-
-
 
     private static void verifyListener(AlertNotification saved, AlertNotification alert) {
         assertThat(saved.getId()).isEqualTo(alert.getId());
