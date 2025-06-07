@@ -68,7 +68,7 @@ public class RabbitAlertListenerTest {
                 2L,
                 "Vacinacao",
                 "INMET",
-                AlertType.FIRE,
+                AlertType.MEDICAL,
                 AlertStatus.RECEIVED
         );
 
