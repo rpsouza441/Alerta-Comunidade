@@ -28,7 +28,7 @@ public class JpaFailedAlertRepository implements FailedAlertRepositoryPort {
     }
 
     @Override
-    public Optional<FailedAlertNotification> findBydId(Long id) {
+    public Optional<FailedAlertNotification> findById(Long id) {
         return delegate.findById(id);
     }
 }

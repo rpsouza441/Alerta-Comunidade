@@ -10,6 +10,6 @@ public interface FailedAlertRepositoryPort {
 
     List<FailedAlertNotification> findAll();
 
-    Optional<FailedAlertNotification> findBydId(Long id);
+    Optional<FailedAlertNotification> findById(Long id);
 
 }

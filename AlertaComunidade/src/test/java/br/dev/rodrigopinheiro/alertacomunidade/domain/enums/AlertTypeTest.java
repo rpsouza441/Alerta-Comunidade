@@ -26,7 +26,7 @@ class AlertTypeTest {
     }
 
     @Test
-    void shouldHaveExactlyFiveEnumConstants() {
+    void shouldHaveExactlySixEnumConstants() {
         assertThat(AlertType.values()).hasSize(6);
     }
 }

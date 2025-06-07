@@ -26,7 +26,7 @@ public class ReprocessFailedAlertUseCase implements ReprocessFailedAlertUseCaseP
 
     @Override
     public void execute(Long id) {
-        FailedAlertNotification failed = failedRepository.findBydId(id)
+        FailedAlertNotification failed = failedRepository.findById(id)
                 .orElseThrow(() -> new FailedAlertNotFoundException(id));
 
         AlertNotification alert = FailedAlertMapper.toAlertNotification(failed);

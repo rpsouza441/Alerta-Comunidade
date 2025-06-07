@@ -46,7 +46,7 @@ public class ReprocessFailedAlertUseCaseTest {
         failed.setStatus(AlertStatus.FAILED);
         failed.setCreatedAt(LocalDateTime.now());
 
-        when(failedRepository.findBydId(id)).thenReturn(Optional.of(failed));
+        when(failedRepository.findById(id)).thenReturn(Optional.of(failed));
 
         // when
         useCase.execute(id);
@@ -79,7 +79,7 @@ public class ReprocessFailedAlertUseCaseTest {
     @Test
     void shouldThrowWhenFailedAlertDoesNotExist() {
         // given
-        when(failedRepository.findBydId(999L)).thenReturn(Optional.empty());
+        when(failedRepository.findById(999L)).thenReturn(Optional.empty());
 
         // when + then
         assertThatThrownBy(() -> useCase.execute(999L))

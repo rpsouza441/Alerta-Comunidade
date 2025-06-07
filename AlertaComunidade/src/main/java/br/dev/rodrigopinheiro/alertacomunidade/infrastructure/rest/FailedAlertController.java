@@ -25,7 +25,7 @@ public class FailedAlertController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FailedAlertNotification>> listAill(){
+    public ResponseEntity<List<FailedAlertNotification>> listAll(){
         List<FailedAlertNotification> all = failedAlertRepository.findAll();
         return ResponseEntity.ok(all);
     }
