@@ -3,7 +3,6 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.time.LocalDateTime;
 
+import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
 import static org.assertj.core.api.Assertions.*;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -38,7 +38,7 @@ public class RabbitAlertPublisherTest {
         rabbitAlertPublisher.publish(alert);
 
         //then
-        verifyPublish(RabbitMQConfig.CRITICAL_ROUTING_KEY, alert);
+        verifyPublish(CRITICAL_ROUTING_KEY, alert);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class RabbitAlertPublisherTest {
         rabbitAlertPublisher.publish(alert);
 
         //then
-        verifyPublish(RabbitMQConfig.NORMAL_ROUTING_KEY, alert);
+        verifyPublish(NORMAL_ROUTING_KEY, alert);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class RabbitAlertPublisherTest {
         //when
         rabbitAlertPublisher.publish(alert);
         //then
-        verifyPublish(RabbitMQConfig.LOG_ROUTING_KEY, alert);
+        verifyPublish(LOG_ROUTING_KEY, alert);
     }
 
     @Test
@@ -72,8 +72,8 @@ public class RabbitAlertPublisherTest {
         doThrow(new AmqpException("Erro simulado"))
                 .when(rabbitTemplate)
                 .convertAndSend(
-                        eq(RabbitMQConfig.EXCHANGE),
-                        eq(RabbitMQConfig.CRITICAL_ROUTING_KEY),
+                        eq(EXCHANGE),
+                        eq(CRITICAL_ROUTING_KEY),
                         any(AlertNotification.class)
                 );
 
@@ -100,7 +100,7 @@ public class RabbitAlertPublisherTest {
         ArgumentCaptor<String> routingKeyCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Object> payloadCaptor = ArgumentCaptor.forClass(Object.class);
 
-        verify(rabbitTemplate).convertAndSend(eq(RabbitMQConfig.EXCHANGE), routingKeyCaptor.capture(), payloadCaptor.capture());
+        verify(rabbitTemplate).convertAndSend(eq(EXCHANGE), routingKeyCaptor.capture(), payloadCaptor.capture());
 
         String actualRoutingKey = routingKeyCaptor.getValue();
         AlertNotification actualAlert = (AlertNotification) payloadCaptor.getValue();

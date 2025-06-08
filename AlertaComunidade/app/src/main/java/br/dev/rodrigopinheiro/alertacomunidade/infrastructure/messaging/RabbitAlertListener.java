@@ -16,9 +16,8 @@ import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
-import static br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig.CRITICAL_QUEUE;
-import static br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig.NORMAL_QUEUE;
-import static br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig.LOG_QUEUE;
+import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
+
 
 @Component
 public class RabbitAlertListener {

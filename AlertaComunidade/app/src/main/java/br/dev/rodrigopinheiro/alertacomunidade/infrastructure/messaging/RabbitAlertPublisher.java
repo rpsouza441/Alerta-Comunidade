@@ -2,10 +2,10 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
+import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ public class RabbitAlertPublisher implements AlertPublisherPort {
         String routingKey = resolveRoutingKey(alert.getAlertType());
         try {
             rabbitTemplate.convertAndSend(
-                    RabbitMQConfig.EXCHANGE,
+                    EXCHANGE,
                     routingKey,
                     alert
             );
             logger.info("Alerta enviado para a exchange [{}] com routingKey [{}]. ID: {}, Tipo: {}",
-                    RabbitMQConfig.EXCHANGE, routingKey, alert.getId(), alert.getAlertType());
+                    EXCHANGE, routingKey, alert.getId(), alert.getAlertType());
         } catch (Exception e) {
             logger.error("Erro ao enviar alerta para a fila - ID: {} - Motivo: {}", alert.getId(), e.getMessage(), e);
             throw e;
@@ -38,12 +38,12 @@ public class RabbitAlertPublisher implements AlertPublisherPort {
     }
 
     private String resolveRoutingKey(AlertType alertType) {
-        if (alertType == null) return RabbitMQConfig.LOG_ROUTING_KEY;
+        if (alertType == null) return LOG_ROUTING_KEY;
 
         return switch (alertType) {
-            case FIRE, FLOOD, CRIME -> RabbitMQConfig.CRITICAL_ROUTING_KEY;
-            case WEATHER, MEDICAL -> RabbitMQConfig.NORMAL_ROUTING_KEY;
-            default -> RabbitMQConfig.LOG_ROUTING_KEY;
+            case FIRE, FLOOD, CRIME -> CRITICAL_ROUTING_KEY;
+            case WEATHER, MEDICAL -> NORMAL_ROUTING_KEY;
+            default -> LOG_ROUTING_KEY;
         };
     }
 }
