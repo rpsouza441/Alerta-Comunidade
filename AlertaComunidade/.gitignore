@@ -1,33 +1,98 @@
-HELP.md
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Compiled source #
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+bin/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Package files #
+*.zip
+*.tar.gz
+*.rar
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Eclipse/NetBeans #
 *.iml
 *.ipr
+*.iws
+.idea/
+.project
+.classpath
+.settings/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# IntelliJ IDEA ###
+*.iml
+.idea/
+out/
+
+# OS-specific files ###
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Logs and temp files ###
+*.log
+hs_err_pid*
+replay_pid*
+
+# Maven ###
+log/
+target/
+release.properties
+
+# Gradle ###
+.gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!gradle-wrapper.jar
+gradle-app.setting
 
-### VS Code ###
+# Spring Boot devtools restart trigger #
+.spring-boot-devtools.properties
+
+# Environment configs ###
+.env
+*.env
+
+# Test reports ###
+test-output/
+surefire-reports/
+jacoco.exec
+
+# SonarQube #
+.sonar/
+sonar-report.json
+
+# Coverage reports ###
+coverage/
+*.lcov
+
+# Docker #
+docker-compose.override.yml
+.env.local
+.env.*.local
+docker.env
+**/docker/**/data/
+**/docker/**/logs/
+
+# Others #
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# VS Code (caso use) ###
 .vscode/
+
+# Database and sensitive data ###
+*.h2.db
+*.mv.db
+*.sqlite
+*.db
+
+# Flyway/Liquibase checksum files
+*.checksum
