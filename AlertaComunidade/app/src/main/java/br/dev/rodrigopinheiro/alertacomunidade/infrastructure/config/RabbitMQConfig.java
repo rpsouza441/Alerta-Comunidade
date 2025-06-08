@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static br.dev.rodrigopinheiro.alertacomunidade.application.config.RabbitConstants.*;
+
 @Configuration
 public class RabbitMQConfig {
 

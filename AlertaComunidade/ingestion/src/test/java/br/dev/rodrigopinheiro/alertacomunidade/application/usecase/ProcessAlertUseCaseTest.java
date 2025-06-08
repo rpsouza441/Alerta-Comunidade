@@ -6,12 +6,13 @@ import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNot
 import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertPublisherPort;
 import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.application.dto.AlertRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.application.usecase.ProcessAlertUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 public class ProcessAlertUseCaseTest {
