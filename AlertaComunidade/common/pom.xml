@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 1. Aponta para o POM agregador -->
+    <parent>
+        <groupId>br.dev.rodrigpinheiro</groupId>
+        <artifactId>AlertaComunidade</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 2. Coordenadas do módulo -->
+    <artifactId>common</artifactId>
+    <name>AlertaComunidade-Common</name>
+
+    <!-- 3. (Opcional) Dependências compartilhadas -->
+    <dependencies>
+        <!-- ex:
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </dependency>
+        -->
+    </dependencies>
+
+</project>
