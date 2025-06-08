@@ -1,0 +1,98 @@
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Compiled source #
+target/
+bin/
+
+# Package files #
+*.zip
+*.tar.gz
+*.rar
+
+# Eclipse/NetBeans #
+*.iml
+*.ipr
+*.iws
+.idea/
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA ###
+*.iml
+.idea/
+out/
+
+# OS-specific files ###
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Logs and temp files ###
+*.log
+hs_err_pid*
+replay_pid*
+
+# Maven ###
+log/
+target/
+release.properties
+
+# Gradle ###
+.gradle/
+build/
+!gradle-wrapper.jar
+gradle-app.setting
+
+# Spring Boot devtools restart trigger #
+.spring-boot-devtools.properties
+
+# Environment configs ###
+.env
+*.env
+
+# Test reports ###
+test-output/
+surefire-reports/
+jacoco.exec
+
+# SonarQube #
+.sonar/
+sonar-report.json
+
+# Coverage reports ###
+coverage/
+*.lcov
+
+# Docker #
+docker-compose.override.yml
+.env.local
+.env.*.local
+docker.env
+**/docker/**/data/
+**/docker/**/logs/
+
+# Others #
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# VS Code (caso use) ###
+.vscode/
+
+# Database and sensitive data ###
+*.h2.db
+*.mv.db
+*.sqlite
+*.db
+
+# Flyway/Liquibase checksum files
+*.checksum
