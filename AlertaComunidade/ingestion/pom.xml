@@ -18,6 +18,12 @@
     <name>AlertaComunidade-Ingestion</name>
 
     <dependencies>
+        <dependency>
+            <groupId>br.dev.rodrigopinheiro</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Spring Web MVC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,12 +55,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>rabbitmq</artifactId>
-            <version>1.19.0</version>
-            <scope>test</scope>
-        </dependency>
+
+
     </dependencies>
 
     <build>
