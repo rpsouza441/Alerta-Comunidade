@@ -1,7 +1,7 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataFailedAlertRepository;
 import org.springframework.stereotype.Component;
 

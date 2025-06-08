@@ -1,12 +1,12 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.mapper.FailedAlertMapper;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.AlertProcessingException;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.application.mapper.FailedAlertMapper;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.AlertProcessingException;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -15,8 +15,6 @@ import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
-
-import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
 
 
 @Component

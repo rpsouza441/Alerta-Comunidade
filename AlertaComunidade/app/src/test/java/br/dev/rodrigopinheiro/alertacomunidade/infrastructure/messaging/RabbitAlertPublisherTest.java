@@ -1,8 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,7 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.time.LocalDateTime;
 
-import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
+import static br.dev.rodrigopinheiro.alertacomunidade.application.config.RabbitConstants.*;
 import static org.assertj.core.api.Assertions.*;
 
 import static org.mockito.ArgumentMatchers.eq;

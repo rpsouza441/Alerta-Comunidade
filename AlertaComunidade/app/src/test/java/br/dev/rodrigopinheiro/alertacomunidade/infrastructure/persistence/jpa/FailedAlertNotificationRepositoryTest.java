@@ -1,9 +1,9 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa;
 
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

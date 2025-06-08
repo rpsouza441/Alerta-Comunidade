@@ -1,11 +1,11 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertResponseDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.ResourceNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.dto.AlertResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.FailedAlertNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

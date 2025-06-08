@@ -1,11 +1,11 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.mapper.AlertMapper;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.application.application.mapper.AlertMapper;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertPublisherPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.dto.AlertRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

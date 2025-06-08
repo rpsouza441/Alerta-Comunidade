@@ -1,12 +1,13 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.mapper;
 
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.application.mapper.AlertMapper;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
 
-import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertRequestDTO;
-import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertResponseDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.application.dto.AlertRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.application.dto.AlertResponseDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

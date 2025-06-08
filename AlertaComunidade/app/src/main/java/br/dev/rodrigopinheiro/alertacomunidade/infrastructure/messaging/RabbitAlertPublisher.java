@@ -1,14 +1,15 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertPublisherPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
-import static br.dev.rodrigopinheiro.alertacomunidade.config.RabbitConstants.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static br.dev.rodrigopinheiro.alertacomunidade.application.config.RabbitConstants.*;
 
 @Component
 public class RabbitAlertPublisher implements AlertPublisherPort {

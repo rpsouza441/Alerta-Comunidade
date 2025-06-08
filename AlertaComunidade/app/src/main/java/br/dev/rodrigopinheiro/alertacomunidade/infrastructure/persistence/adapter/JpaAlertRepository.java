@@ -1,8 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
 
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataAlertRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
