@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./AlertaComunidade/target/alerta-comunidade-0.0.1-SNAPSHOT.jar:/app/alerta-comunidade-0.0.1-SNAPSHOT.jar
+      - ./AlertaComunidade/target/app-0.0.1-SNAPSHOT.jar:/app/app-0.0.1-SNAPSHOT.jar
     ports:
       - "8080:8080"
     depends_on:
