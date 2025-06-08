@@ -1,9 +1,10 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.mapper;
 
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.common.dto.AlertRequestDTO;
-import br.dev.rodrigopinheiro.alertacomunidade.common.dto.AlertResponseDTO;
+
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertResponseDTO;
 
 public class AlertMapper {
 

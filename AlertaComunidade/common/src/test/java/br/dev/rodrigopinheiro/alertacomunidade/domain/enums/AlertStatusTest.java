@@ -1,6 +1,5 @@
 package br.dev.rodrigopinheiro.alertacomunidade.domain.enums;
 
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

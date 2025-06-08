@@ -1,7 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.domain.model;
 
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
+
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

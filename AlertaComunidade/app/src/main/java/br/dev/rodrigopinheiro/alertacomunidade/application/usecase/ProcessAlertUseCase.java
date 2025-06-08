@@ -5,7 +5,7 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessAlertInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.common.dto.AlertRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

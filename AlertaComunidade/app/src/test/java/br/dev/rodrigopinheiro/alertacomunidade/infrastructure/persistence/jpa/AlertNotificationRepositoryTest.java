@@ -1,8 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa;
 
 import br.dev.rodrigopinheiro.alertacomunidade.AlertaComunidadeApplication;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 
 import org.junit.jupiter.api.DisplayName;

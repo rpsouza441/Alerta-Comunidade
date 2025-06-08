@@ -1,7 +1,9 @@
-package br.dev.rodrigopinheiro.alertacomunidade.common.dto;
+package br.dev.rodrigopinheiro.alertacomunidade.dto;
 
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertType;
+
+
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 
 import java.time.LocalDateTime;
 

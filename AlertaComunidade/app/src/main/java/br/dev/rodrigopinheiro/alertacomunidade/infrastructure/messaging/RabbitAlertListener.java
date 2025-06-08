@@ -1,7 +1,7 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
 import br.dev.rodrigopinheiro.alertacomunidade.application.mapper.FailedAlertMapper;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.AlertProcessingException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;

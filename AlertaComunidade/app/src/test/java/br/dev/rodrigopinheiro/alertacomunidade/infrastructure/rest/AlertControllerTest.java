@@ -1,12 +1,12 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAlertByIdInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessAlertInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.common.dto.AlertResponseDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

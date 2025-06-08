@@ -1,8 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
-import br.dev.rodrigopinheiro.alertacomunidade.common.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;

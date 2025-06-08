@@ -8,9 +8,9 @@
 
     <!-- 1. Pai: o POM agregador -->
     <parent>
-        <groupId>br.dev.rodrigpinheiro</groupId>
+        <groupId>br.dev.rodrigopinheiro</groupId>
         <artifactId>AlertaComunidade</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -20,6 +20,11 @@
 
     <!-- 3. Todas as dependências do monolito original -->
     <dependencies>
+        <dependency>
+            <groupId>br.dev.rodrigopinheiro</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>

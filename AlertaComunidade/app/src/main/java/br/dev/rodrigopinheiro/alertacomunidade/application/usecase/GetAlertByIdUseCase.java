@@ -5,7 +5,7 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFound
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAlertByIdInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.common.dto.AlertResponseDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.AlertResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
