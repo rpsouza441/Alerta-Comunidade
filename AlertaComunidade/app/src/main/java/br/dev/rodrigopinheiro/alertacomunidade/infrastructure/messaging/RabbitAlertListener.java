@@ -1,12 +1,12 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.application.mapper.FailedAlertMapper;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.AlertProcessingException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.mapper.FailedAlertMapper;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.AlertProcessingException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.FailedAlertRepositoryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

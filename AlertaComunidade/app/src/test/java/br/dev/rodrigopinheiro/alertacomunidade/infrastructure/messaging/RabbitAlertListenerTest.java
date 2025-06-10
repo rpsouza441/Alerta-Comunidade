@@ -1,12 +1,12 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.AlertProcessingException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.AlertProcessingException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.AlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.FailedAlertRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

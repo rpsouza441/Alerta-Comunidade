@@ -1,9 +1,9 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.FailedAlertNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.input.ReprocessFailedAlertUseCasePort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.FailedAlertNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.input.ReprocessFailedAlertUseCasePort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.FailedAlertRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

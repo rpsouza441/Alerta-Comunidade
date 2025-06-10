@@ -1,13 +1,13 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.application.mapper.FailedAlertMapper;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.FailedAlertNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.input.ReprocessFailedAlertUseCasePort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertPublisherPort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.mapper.FailedAlertMapper;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.FailedAlertNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.input.ReprocessFailedAlertUseCasePort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.AlertPublisherPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.FailedAlertRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

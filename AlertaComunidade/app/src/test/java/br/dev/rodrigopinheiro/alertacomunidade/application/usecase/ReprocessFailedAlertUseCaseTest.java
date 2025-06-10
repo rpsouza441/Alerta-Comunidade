@@ -1,12 +1,12 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertStatus;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.enums.AlertType;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.FailedAlertNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.model.FailedAlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.AlertPublisherPort;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertType;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.FailedAlertNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.AlertPublisherPort;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.port.output.FailedAlertRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

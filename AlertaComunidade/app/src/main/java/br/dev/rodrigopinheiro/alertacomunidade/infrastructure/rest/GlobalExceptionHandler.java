@@ -1,7 +1,7 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.FailedAlertNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.application.domain.exception.ResourceNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.FailedAlertNotFoundException;
+import br.dev.rodrigopinheiro.alertacomunidade.common.domain.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
