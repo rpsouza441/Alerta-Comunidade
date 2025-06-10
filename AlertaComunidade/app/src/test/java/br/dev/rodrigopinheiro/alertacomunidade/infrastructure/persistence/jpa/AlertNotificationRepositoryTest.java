@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.ingestion.infrasctructure.persistence.jpa;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa;
 
 import br.dev.rodrigopinheiro.alertacomunidade.IngestionApplication;
 import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;

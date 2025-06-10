@@ -6,17 +6,19 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
 @SpringBootApplication(
-		scanBasePackages = "br.dev.rodrigopinheiro.alertacomunidade.common",
-		exclude = {
-				DataSourceAutoConfiguration.class,
-				HibernateJpaAutoConfiguration.class
-		}
+        scanBasePackages = {
+                "br.dev.rodrigopinheiro.alertacomunidade.common",
+                "br.dev.rodrigopinheiro.alertacomunidade.ingestion"},
+        exclude = {
+                DataSourceAutoConfiguration.class,
+                HibernateJpaAutoConfiguration.class
+        }
 )
 
-public class IngestionApplication  {
+public class IngestionApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IngestionApplication .class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IngestionApplication.class, args);
+    }
 
 }

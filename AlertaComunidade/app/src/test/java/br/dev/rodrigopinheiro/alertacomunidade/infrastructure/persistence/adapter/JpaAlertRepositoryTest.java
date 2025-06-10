@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.ingestion.infrasctructure.persistence.adapter;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
 
 import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.common.domain.enums.AlertType;
