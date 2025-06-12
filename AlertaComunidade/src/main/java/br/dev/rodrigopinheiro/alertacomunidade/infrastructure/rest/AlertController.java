@@ -53,7 +53,7 @@ public class AlertController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlertResponseDTO> getAlertbyId(@PathVariable Long id) {
+    public ResponseEntity<AlertResponseDTO> getAlertById(@PathVariable Long id) {
         logger.info("GET /alerts - ID={}", id);
         AlertResponseDTO alertResponseDTO = getAlertByIdUseCase.getAlertById(id);
         return  ResponseEntity.ok(alertResponseDTO);
