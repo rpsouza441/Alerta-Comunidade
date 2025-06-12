@@ -8,7 +8,6 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotificat
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessFailedAlertUseCasePort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
