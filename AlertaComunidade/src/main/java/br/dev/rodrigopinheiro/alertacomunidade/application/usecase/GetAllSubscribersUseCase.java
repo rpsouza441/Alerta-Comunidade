@@ -7,9 +7,10 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepo
 import br.dev.rodrigopinheiro.alertacomunidade.dto.SubscriberResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class GetAllSubscribersUseCase implements GetAllSubscribersInputPort {
     private static final Logger logger = LoggerFactory.getLogger(GetAllSubscribersUseCase.class);
@@ -21,10 +22,9 @@ public class GetAllSubscribersUseCase implements GetAllSubscribersInputPort {
     }
 
     @Override
-    public List<SubscriberResponseDTO> getAll() {
+    public Page<SubscriberResponseDTO> getAll(Pageable pageable) {
         logger.info("Executando caso de uso: GetAllSubscribers");
-        return repository.findAll().stream()
-                .map(SubscriberMapper::toResponse)
-                .toList();
+        return repository.findAll(pageable)
+                .map(SubscriberMapper::toResponse);
     }
 }

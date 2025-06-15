@@ -3,6 +3,8 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapt
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataSubscriberRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,5 +36,10 @@ public class JpaSubscriberRepository implements SubscriberRepositoryPort {
     @Override
     public List<Subscriber> findAll() {
         return delegate.findAll();
+    }
+
+    @Override
+    public Page<Subscriber> findAll(Pageable pageable) {
+        return delegate.findAll(pageable);
     }
 }
