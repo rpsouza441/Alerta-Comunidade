@@ -1,7 +1,8 @@
 package br.dev.rodrigopinheiro.alertacomunidade.domain.port.input;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 
 public interface ProcessFailedAlertInputPort {
-    void processFailedAlert(AlertNotification alert, String errorMessage);
+    FailedAlertNotification execute(AlertNotification alert, String errorMessage);
 }

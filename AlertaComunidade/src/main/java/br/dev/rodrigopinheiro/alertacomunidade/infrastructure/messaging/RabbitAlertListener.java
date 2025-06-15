@@ -6,6 +6,7 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.AlertProcessingE
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessFailedAlertInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
@@ -29,14 +30,14 @@ public class RabbitAlertListener {
 
     private static final Logger logger = LoggerFactory.getLogger(RabbitAlertListener.class);
     private final AlertRepositoryPort alertRepository;
-    private final FailedAlertRepositoryPort failedRepository;
+    private final ProcessFailedAlertInputPort processFailedAlertUseCasePort;
     private final SubscriberNotifier subscriberNotifier;
 
     public RabbitAlertListener(AlertRepositoryPort repository,
-                               FailedAlertRepositoryPort failedRepository,
+                           ProcessFailedAlertInputPort processFailedAlertUseCasePort,
                                SubscriberNotifier subscriberNotifier) {
         this.alertRepository = repository;
-        this.failedRepository = failedRepository;
+        this.processFailedAlertUseCasePort = processFailedAlertUseCasePort;
         this.subscriberNotifier = subscriberNotifier;
     }
 
@@ -96,12 +97,7 @@ public class RabbitAlertListener {
 
     @Recover
     public void recover(AlertProcessingException e, AlertNotification alert) {
-        logger.warn("[RECOVER] Alerta ID={} movido para fallback após 3 tentativas. Motivo final: {}",
-                alert.getId(), e.getMessage());
-        FailedAlertNotification failed = FailedAlertMapper.from(alert, e.getMessage());
-        failedRepository.save(failed);
-
-        logger.info("Alerta ID={} persistido com status de falha em 'failed_alert_notifications'", alert.getId());
+        processFailedAlertUseCasePort.execute(alert, e.getMessage());
     }
 
 

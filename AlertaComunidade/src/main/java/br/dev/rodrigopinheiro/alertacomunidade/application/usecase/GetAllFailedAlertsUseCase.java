@@ -23,6 +23,6 @@ public class GetAllFailedAlertsUseCase implements GetAllFailedAlertsInputPort {
     @Override
     public Page<FailedAlertNotification> getAllFailedAlerts(Pageable pageable) {
         logger.info("Executando caso de uso: GetAllFailedAlerts");
-        return repository.findAll(Pageable pageable);
+        return repository.findAll(pageable);
     }
 }

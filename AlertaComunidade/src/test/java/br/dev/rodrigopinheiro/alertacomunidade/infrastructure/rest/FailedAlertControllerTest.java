@@ -75,7 +75,6 @@ class FailedAlertControllerTest {
         Page<FailedAlertNotification> empty = new PageImpl<>(Collections.emptyList(), pageRequest, 0);
         when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(empty);
 
-        mockMvc.perform(get("/failed-alerts"))
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("[]"));
