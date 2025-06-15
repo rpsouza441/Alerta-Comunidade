@@ -9,10 +9,11 @@ public class SubscriberMapper {
         Subscriber s = new Subscriber();
         s.setEmail(dto.getEmail());
         s.setPhoneNumber(dto.getPhoneNumber());
+        s.setActive(true);
         return s;
     }
 
     public static SubscriberResponseDTO toResponse(Subscriber entity) {
-        return new SubscriberResponseDTO(entity.getId(), entity.getEmail(), entity.getPhoneNumber());
+        return new SubscriberResponseDTO(entity.getId(), entity.getEmail(), entity.getPhoneNumber(), entity.isActive());
     }
 }

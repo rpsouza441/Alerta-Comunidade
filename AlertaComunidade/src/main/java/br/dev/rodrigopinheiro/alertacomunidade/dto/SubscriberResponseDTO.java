@@ -5,12 +5,12 @@ public class SubscriberResponseDTO {
     private Long id;
     private String email;
     private String phoneNumber;
-
-    public SubscriberResponseDTO() {}
-    public SubscriberResponseDTO(Long id, String email, String phoneNumber) {
+    private boolean active;
+    public SubscriberResponseDTO(Long id, String email, String phoneNumber, boolean active) {
         this.id = id;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.active = active;
     }
 
     public Long getId() { return id; }
@@ -21,4 +21,7 @@ public class SubscriberResponseDTO {
 
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

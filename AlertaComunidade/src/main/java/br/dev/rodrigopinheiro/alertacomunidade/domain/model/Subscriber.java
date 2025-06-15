@@ -20,6 +20,19 @@ public class Subscriber {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
+    public Subscriber() {
+    }
+
+    public Subscriber(Long id, String email, String phoneNumber, boolean active) {
+        this.id = id;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.active = active;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -27,5 +40,9 @@ public class Subscriber {
     public void setEmail(String email) { this.email = email; }
 
     public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

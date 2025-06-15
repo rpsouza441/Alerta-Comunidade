@@ -1,0 +1,2 @@
+ALTER TABLE subscribers
+    ADD COLUMN active BOOLEAN NOT NULL DEFAULT TRUE AFTER phone_number;
