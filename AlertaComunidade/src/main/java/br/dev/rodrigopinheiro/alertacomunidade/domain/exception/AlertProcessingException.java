@@ -4,4 +4,7 @@ public class AlertProcessingException extends RuntimeException {
     public AlertProcessingException(String message, Throwable cause) {
         super(message, cause);
     }
+    public AlertProcessingException(String message) {
+        super(message);
+    }
 }
