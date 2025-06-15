@@ -27,6 +27,7 @@ public class RabbitAlertListener {
     private final AlertRepositoryPort alertRepository;
     private final FailedAlertRepositoryPort failedRepository;
 
+
     public RabbitAlertListener(AlertRepositoryPort repository, FailedAlertRepositoryPort failedRepository) {
         this.alertRepository = repository;
         this.failedRepository = failedRepository;
