@@ -11,14 +11,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotificationServiceImpl implements NotificationServicePort {
+public class NotificationService implements NotificationServicePort {
     private final JavaMailSender mailSender;
     private final String fromNumber;
 
-    public NotificationServiceImpl(JavaMailSender mailSender,
-                                   @Value("${twilio.account-sid}") String sid,
-                                   @Value("${twilio.auth-token}") String token,
-                                   @Value("${twilio.from-number}") String fromNumber) {
+    public NotificationService(JavaMailSender mailSender,
+                               @Value("${twilio.account-sid}") String sid,
+                               @Value("${twilio.auth-token}") String token,
+                               @Value("${twilio.from-number}") String fromNumber) {
         this.mailSender = mailSender;
         this.fromNumber = fromNumber;
         Twilio.init(sid, token);
