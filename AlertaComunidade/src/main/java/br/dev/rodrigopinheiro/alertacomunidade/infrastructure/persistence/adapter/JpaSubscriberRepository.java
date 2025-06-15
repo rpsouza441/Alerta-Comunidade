@@ -1,0 +1,38 @@
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
+
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataSubscriberRepository;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+
+@Component
+public class JpaSubscriberRepository implements SubscriberRepositoryPort {
+    private final SpringDataSubscriberRepository delegate;
+
+    public JpaSubscriberRepository(SpringDataSubscriberRepository delegate) {
+        this.delegate = delegate;
+    }
+
+    @Override
+    public Subscriber save(Subscriber subscriber) {
+        return delegate.save(subscriber);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return delegate.existsByEmail(email);
+    }
+
+    @Override
+    public Optional<Subscriber> findById(Long id) {
+        return delegate.findById(id);
+    }
+
+    @Override
+    public List<Subscriber> findAll() {
+        return delegate.findAll();
+    }
+}
