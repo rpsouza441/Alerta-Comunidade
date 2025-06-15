@@ -4,7 +4,9 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,7 +28,8 @@ public class GlobalExceptionHandlerTest {
     void shouldHandleResourceNotFoundException() {
         // given
         ResourceNotFoundException ex = new ResourceNotFoundException("Recurso não encontrado");
-
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        Mockito.when(request.getRequestURI()).thenReturn("/teste");
         // when
         ResponseEntity<Object> response = handler.resourceNotFound(ex);
         Map<String, Object> body = castBody(response);
