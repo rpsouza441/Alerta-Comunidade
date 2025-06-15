@@ -29,4 +29,14 @@ public class ProcessSubscriberUseCase implements ProcessSubscriberInputPort {
         subscriber.setActive(false);
         repository.save(subscriber);
     }
+
+    @Override
+    @Transactional
+    public void activate(Long id) {
+        logger.info("Ativando subscriber {}", id);
+        Subscriber subscriber = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subscriber com ID: " + id + " não encontrado"));
+        subscriber.setActive(true);
+        repository.save(subscriber);
+    }
 }

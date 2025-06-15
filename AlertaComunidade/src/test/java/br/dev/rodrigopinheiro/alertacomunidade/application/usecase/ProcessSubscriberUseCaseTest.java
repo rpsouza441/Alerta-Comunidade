@@ -37,10 +37,34 @@ class ProcessSubscriberUseCaseTest {
     }
 
     @Test
+    void shouldActivateSubscriber() {
+        Subscriber subscriber = new Subscriber();
+        subscriber.setId(1L);
+        subscriber.setActive(false);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(subscriber));
+
+        useCase.activate(1L);
+
+        verify(repository).save(subscriber);
+        assert subscriber.isActive();
+    }
+
+
+    @Test
     void shouldThrowWhenSubscriberNotFound() {
         when(repository.findById(2L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> useCase.deactivate(2L))
+                .isInstanceOf(ResourceNotFoundException.class);
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowWhenActivatingNonexistentSubscriber() {
+        when(repository.findById(3L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> useCase.activate(3L))
                 .isInstanceOf(ResourceNotFoundException.class);
         verify(repository, never()).save(any());
     }

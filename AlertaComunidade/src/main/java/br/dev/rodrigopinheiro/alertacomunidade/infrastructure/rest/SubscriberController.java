@@ -34,4 +34,7 @@ public class SubscriberController {
         SubscriberResponseDTO response = SubscriberMapper.toResponse(entity);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+
+
 }
