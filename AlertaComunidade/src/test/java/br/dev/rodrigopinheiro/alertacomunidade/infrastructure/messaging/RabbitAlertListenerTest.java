@@ -7,6 +7,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -29,6 +32,12 @@ public class RabbitAlertListenerTest {
     @Mock
     private FailedAlertRepositoryPort failedARepository;
 
+    @Mock
+    private SubscriberRepositoryPort subscriberRepository;
+
+    @Mock
+    private NotificationServicePort notificationService;
+
     @InjectMocks
     private RabbitAlertListener listener;
 
@@ -48,12 +57,18 @@ public class RabbitAlertListenerTest {
                 AlertType.FIRE,
                 AlertStatus.RECEIVED
         );
+        Subscriber s = new Subscriber();
+        s.setEmail("a@a.com");
+        s.setPhoneNumber("+11111111111");
+        when(subscriberRepository.findAll()).thenReturn(java.util.List.of(s));
 
         //when
         listener.receiveCritical(alert);
 
         //then
         verify(alertRepository).save(alertCaptor.capture());
+        verify(notificationService).sendEmail("a@a.com", "Alerta: " + alert.getAlertType(), alert.getMessage());
+        verify(notificationService).sendSms("+11111111111", alert.getMessage());
 
         AlertNotification saved = alertCaptor.getValue();
         verifyListener(saved, alert);
@@ -70,12 +85,18 @@ public class RabbitAlertListenerTest {
                 AlertType.MEDICAL,
                 AlertStatus.RECEIVED
         );
+        Subscriber s = new Subscriber();
+        s.setEmail("b@b.com");
+        s.setPhoneNumber("+22222222222");
+        when(subscriberRepository.findAll()).thenReturn(java.util.List.of(s));
 
         //when
         listener.receiveNormal(alert);
 
         //then
         verify(alertRepository).save(alertCaptor.capture());
+        verify(notificationService).sendEmail("b@b.com", "Alerta: " + alert.getAlertType(), alert.getMessage());
+        verify(notificationService).sendSms("+22222222222", alert.getMessage());
 
         AlertNotification saved = alertCaptor.getValue();
         verifyListener(saved, alert);
@@ -92,12 +113,18 @@ public class RabbitAlertListenerTest {
                 AlertType.OTHER,
                 AlertStatus.RECEIVED
         );
+        Subscriber s = new Subscriber();
+        s.setEmail("c@c.com");
+        s.setPhoneNumber("+33333333333");
+        when(subscriberRepository.findAll()).thenReturn(java.util.List.of(s));
 
         //when
         listener.receiveLog(alert);
 
         //then
         verify(alertRepository).save(alertCaptor.capture());
+        verify(notificationService).sendEmail("c@c.com", "Alerta: " + alert.getAlertType(), alert.getMessage());
+        verify(notificationService).sendSms("+33333333333", alert.getMessage());
 
         AlertNotification saved = alertCaptor.getValue();
         verifyListener(saved, alert);

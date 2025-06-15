@@ -34,9 +34,26 @@ spring:
     username: guest
     password: guest
 
+  mail:
+    host: smtp
+    port: 1025
+    username: user
+    password: pass
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+twilio:
+  account-sid: ${TWILIO_ACCOUNT_SID:ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX}
+  auth-token: ${TWILIO_AUTH_TOKEN:token}
+  from-number: ${TWILIO_FROM_NUMBER:+1234567890}
 
 
 # Converte camelCase -> snake_case no banco de dados (opcional)

@@ -7,6 +7,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,10 +29,17 @@ public class RabbitAlertListener {
     private static final Logger logger = LoggerFactory.getLogger(RabbitAlertListener.class);
     private final AlertRepositoryPort alertRepository;
     private final FailedAlertRepositoryPort failedRepository;
+    private final SubscriberRepositoryPort subscriberRepository;
+    private final NotificationServicePort notificationService;
 
-    public RabbitAlertListener(AlertRepositoryPort repository, FailedAlertRepositoryPort failedRepository) {
+    public RabbitAlertListener(AlertRepositoryPort repository,
+                              FailedAlertRepositoryPort failedRepository,
+                              SubscriberRepositoryPort subscriberRepository,
+                              NotificationServicePort notificationService) {
         this.alertRepository = repository;
         this.failedRepository = failedRepository;
+        this.subscriberRepository = subscriberRepository;
+        this.notificationService = notificationService;
     }
 
     @Retryable(
@@ -43,6 +53,7 @@ public class RabbitAlertListener {
         try {
             alert.setStatus(AlertStatus.DELIVERED);
             alertRepository.save(alert);
+            notifySubscribers(alert);
         } catch (AlertProcessingException e) {
             logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
             throw new AlertProcessingException("Erro ao processar alerta", e);
@@ -60,6 +71,7 @@ public class RabbitAlertListener {
         try {
             alert.setStatus(AlertStatus.DELIVERED);
             alertRepository.save(alert);
+            notifySubscribers(alert);
         } catch (AlertProcessingException e) {
             logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
             throw new AlertProcessingException("Erro ao processar alerta", e);
@@ -76,6 +88,7 @@ public class RabbitAlertListener {
         try {
             alert.setStatus(AlertStatus.DELIVERED);
             alertRepository.save(alert);
+            notifySubscribers(alert);
         } catch (AlertProcessingException e) {
             logger.error("Falha ao processar alerta: ID={} - Motivo: {}", alert.getId(), e.getMessage(), e);
             throw new AlertProcessingException("Erro ao processar alerta", e);
@@ -90,5 +103,18 @@ public class RabbitAlertListener {
         failedRepository.save(failed);
 
         logger.info("Alerta ID={} persistido com status de falha em 'failed_alert_notifications'", alert.getId());
+    }
+
+    private void notifySubscribers(AlertNotification alert) {
+        String subject = "Alerta: " + alert.getAlertType();
+        String msg = alert.getMessage();
+        for (Subscriber s : subscriberRepository.findAll()) {
+            if (s.getEmail() != null) {
+                notificationService.sendEmail(s.getEmail(), subject, msg);
+            }
+            if (s.getPhoneNumber() != null) {
+                notificationService.sendSms(s.getPhoneNumber(), msg);
+            }
+        }
     }
 }
