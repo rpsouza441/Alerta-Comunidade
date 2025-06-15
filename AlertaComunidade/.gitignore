@@ -58,6 +58,9 @@ gradle-app.setting
 .env
 *.env
 
+#Aplication configuration
+application.yml
+
 # Test reports ###
 test-output/
 surefire-reports/
