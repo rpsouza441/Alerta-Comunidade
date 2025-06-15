@@ -3,6 +3,8 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapt
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataFailedAlertRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,6 +27,11 @@ public class JpaFailedAlertRepository implements FailedAlertRepositoryPort {
     @Override
     public List<FailedAlertNotification> findAll() {
         return delegate.findAll();
+    }
+
+    @Override
+    public Page<FailedAlertNotification> findAll(Pageable pageable) {
+        return delegate.findAll(pageable);
     }
 
     @Override

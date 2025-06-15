@@ -2,8 +2,13 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllFailedAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessFailedAlertUseCasePort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +19,26 @@ import java.util.List;
 @RequestMapping("/failed-alerts")
 public class FailedAlertController {
 
-    private final FailedAlertRepositoryPort failedAlertRepository;
     private final ReprocessFailedAlertUseCasePort reprocessFailedAlertUseCasePort;
+    private final GetAllFailedAlertsInputPort getAllFailedAlertsUseCase;
 
 
-    public FailedAlertController(FailedAlertRepositoryPort failedAlertRepository,
-                                  ReprocessFailedAlertUseCasePort reprocessFailedAlertUseCasePort) {
-        this.failedAlertRepository = failedAlertRepository;
+    public FailedAlertController(
+            ReprocessFailedAlertUseCasePort reprocessFailedAlertUseCasePort,
+            GetAllFailedAlertsInputPort getAllFailedAlertsUseCase) {
+        this.getAllFailedAlertsUseCase = getAllFailedAlertsUseCase;
         this.reprocessFailedAlertUseCasePort = reprocessFailedAlertUseCasePort;
     }
 
     @GetMapping
-    public ResponseEntity<List<FailedAlertNotification>> listAll(){
-        List<FailedAlertNotification> all = failedAlertRepository.findAll();
-        return ResponseEntity.ok(all);
+    public Page<FailedAlertNotification> listAll(
+            @PageableDefault(size = 10, sort = "failedAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        return getAllFailedAlertsUseCase.getAllFailedAlerts(pageable);
     }
 
     @PostMapping("/{id}/reprocess")
-    public ResponseEntity<String> reprocess(@PathVariable Long id){
+    public ResponseEntity<String> reprocess(@PathVariable Long id) {
         try {
             reprocessFailedAlertUseCasePort.execute(id);
             return ResponseEntity.ok("Alerta reenviado com sucesso para a fila");

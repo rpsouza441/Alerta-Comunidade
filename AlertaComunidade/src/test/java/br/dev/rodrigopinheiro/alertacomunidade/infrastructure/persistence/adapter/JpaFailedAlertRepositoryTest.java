@@ -70,7 +70,7 @@ class JpaFailedAlertRepositoryTest {
         failedAlertRepository.save(f2);
 
         PageRequest pageRequest = PageRequest.of(0, 2);
-        Page<FailedAlertNotification> result = failedAlertRepository.findAll(pageRequest);
+        Page<FailedAlertNotification> result = jpaFailedAlertRepository.findAll(pageRequest);
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(2);
         assertThat(result.getContent())

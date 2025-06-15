@@ -2,6 +2,7 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllFailedAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessFailedAlertUseCasePort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,8 +40,8 @@ class FailedAlertControllerTest {
     private ReprocessFailedAlertUseCasePort useCase;
 
     @Autowired
-    @Qualifier("failedAlertRepository")
-    private FailedAlertRepositoryPort failedAlertRepository;
+    @Qualifier("getAllFailedAlertsUseCase")
+    private GetAllFailedAlertsInputPort getAllFailedAlertsUseCase;
 
     @TestConfiguration
     static class TestConfig {
@@ -46,11 +50,10 @@ class FailedAlertControllerTest {
             return mock(ReprocessFailedAlertUseCasePort.class);
         }
 
-        @Bean(name = "failedAlertRepository")
-        public FailedAlertRepositoryPort failedAlertRepository() {
-            return mock(FailedAlertRepositoryPort.class);
-        }
-    }
+        @Bean(name = "getAllFailedAlertsUseCase")
+        public GetAllFailedAlertsInputPort getAllFailedAlertsUseCase() {
+            return mock(GetAllFailedAlertsInputPort.class);
+        } }
 
     @Test
     void shouldReturn200WithListOfFailedAlerts() throws Exception {
@@ -58,18 +61,22 @@ class FailedAlertControllerTest {
         failed.setId(1L);
         failed.setMessage("Erro");
         failed.setOrigin("INMET");
-        when(failedAlertRepository.findAll()).thenReturn(List.of(failed));
-
-        mockMvc.perform(get("/failed-alerts"))
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<FailedAlertNotification> page = new PageImpl<>(List.of(failed), pageRequest, 1);
+        when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(page);
+        mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
     void shouldReturnEmptyListWhenNoFailedAlerts() throws Exception {
-        when(failedAlertRepository.findAll()).thenReturn(Collections.emptyList());
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<FailedAlertNotification> empty = new PageImpl<>(Collections.emptyList(), pageRequest, 0);
+        when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(empty);
 
         mockMvc.perform(get("/failed-alerts"))
+        mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("[]"));
     }

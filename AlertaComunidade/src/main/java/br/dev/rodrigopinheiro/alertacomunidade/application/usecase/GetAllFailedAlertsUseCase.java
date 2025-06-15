@@ -7,8 +7,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRep
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @Service
 public class GetAllFailedAlertsUseCase implements GetAllFailedAlertsInputPort {
@@ -20,8 +21,8 @@ public class GetAllFailedAlertsUseCase implements GetAllFailedAlertsInputPort {
     }
 
     @Override
-    public List<FailedAlertNotification> getAllFailedAlerts() {
+    public Page<FailedAlertNotification> getAllFailedAlerts(Pageable pageable) {
         logger.info("Executando caso de uso: GetAllFailedAlerts");
-        return repository.findAll();
+        return repository.findAll(Pageable pageable);
     }
 }
