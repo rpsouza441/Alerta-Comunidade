@@ -54,9 +54,6 @@ gradle-app.setting
 # Spring Boot devtools restart trigger #
 .spring-boot-devtools.properties
 
-# Environment configs ###
-.env
-*.env
 
 # Test reports ###
 test-output/

@@ -2,8 +2,8 @@ services:
   db:
     image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: alertsdb
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-alertsdb}
     ports:
       - "3306:3306"
     volumes:
@@ -15,15 +15,33 @@ services:
       - "5672:5672"
       - "15672:15672" # UI
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./AlertaComunidade/target/alerta-comunidade-0.0.1-SNAPSHOT.jar:/app/alerta-comunidade-0.0.1-SNAPSHOT.jar
+      - ./AlertaComunidade/target/alerta-comunidade.jar:/app/alerta-comunidade.jar
+    environment:
+      DB_URL: ${DB_URL:-jdbc:mariadb://db:3306/alertsdb}
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root}
+      FLYWAY_URL: ${FLYWAY_URL:-jdbc:mysql://db:3306/alertsdb}
+      FLYWAY_USER: ${FLYWAY_USER:-root}
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD:-root}
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+      RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-guest}
+      MAIL_HOST: ${MAIL_HOST:-smtp}
+      MAIL_PORT: ${MAIL_PORT:-1025}
+      MAIL_USERNAME: ${MAIL_USERNAME:-user}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-pass}
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_FROM_NUMBER: ${TWILIO_FROM_NUMBER}
     ports:
       - "8080:8080"
     depends_on:

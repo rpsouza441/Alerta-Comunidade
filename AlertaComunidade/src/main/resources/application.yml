@@ -6,9 +6,9 @@ spring:
     name: alerta-comunidade
 
   datasource:
-    url: jdbc:mariadb://db:3306/alertsdb
-    username: root
-    password: root
+    url: ${DB_URL:jdbc:mariadb://db:3306/alertsdb}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
@@ -21,24 +21,24 @@ spring:
     database-platform: org.hibernate.dialect.MariaDBDialect
   flyway:
     enabled: true
-    url: jdbc:mysql://db:3306/alertsdb
-    user: root
-    password: root
+    url: ${FLYWAY_URL:jdbc:mysql://db:3306/alertsdb}
+    user: ${FLYWAY_USER:root}
+    password: ${FLYWAY_PASSWORD:root}
     locations: classpath:db/migration
     baseline-on-migrate: true
     validate-on-migrate: true
 
   rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
   mail:
-    host: smtp
-    port: 1025
-    username: user
-    password: pass
+    host: ${MAIL_HOST:smtp}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:user}
+    password: ${MAIL_PASSWORD:pass}
     properties:
       mail:
         smtp:
