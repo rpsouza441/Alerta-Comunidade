@@ -9,9 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.dev.rodrigpinheiro</groupId>
-	<artifactId>AlertaComunidade</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>AlertaComunidade</name>
+        <artifactId>alerta-comunidade</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <packaging>jar</packaging>
+        <name>Alerta Comunidade</name>
 	<description>Central de Notificações para Emergências Comunitárias</description>
 	<url/>
 	<licenses>
@@ -118,8 +119,9 @@
         </dependency>
     </dependencies>
 
-	<build>
-		<plugins>
+        <build>
+                <finalName>alerta-comunidade</finalName>
+                <plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
