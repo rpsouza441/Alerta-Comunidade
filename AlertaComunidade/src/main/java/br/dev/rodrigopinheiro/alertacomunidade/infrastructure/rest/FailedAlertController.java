@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class FailedAlertController {
         this.reprocessFailedAlertUseCasePort = reprocessFailedAlertUseCasePort;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<FailedAlertNotification> listAll(
             @PageableDefault(size = 10, sort = "failedAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
