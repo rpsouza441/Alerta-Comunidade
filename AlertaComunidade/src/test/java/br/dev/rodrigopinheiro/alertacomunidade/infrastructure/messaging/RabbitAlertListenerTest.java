@@ -4,10 +4,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.AlertProcessingException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessFailedAlertInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.notification.SubscriberNotifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,7 @@ public class RabbitAlertListenerTest {
     private AlertRepositoryPort alertRepository;
 
     @Mock
-    private FailedAlertRepositoryPort failedARepository;
+    private ProcessFailedAlertInputPort processFailedAlertUseCasePort;
 
     @Mock
     private SubscriberNotifier subscriberNotifier;
@@ -43,7 +42,7 @@ public class RabbitAlertListenerTest {
     private ArgumentCaptor<AlertNotification> alertCaptor;
 
     @Captor
-    private ArgumentCaptor<FailedAlertNotification> failedCaptor;
+    private ArgumentCaptor<String> errorCaptor;
 
     @Test
     void shouldProcessCriticalAlertSuccessfully() {
@@ -139,15 +138,11 @@ public class RabbitAlertListenerTest {
         listener.recover(exception, alert);
 
         // then
-        verify(failedARepository).save(failedCaptor.capture());
+        verify(processFailedAlertUseCasePort)
+                .execute(alertCaptor.capture(), errorCaptor.capture());
 
-        FailedAlertNotification failed = failedCaptor.getValue();
-        assertThat(failed.getOriginalId()).isEqualTo(alert.getId());
-        assertThat(failed.getMessage()).isEqualTo(alert.getMessage());
-        assertThat(failed.getOrigin()).isEqualTo(alert.getOrigin());
-        assertThat(failed.getAlertType()).isEqualTo(alert.getAlertType());
-        assertThat(failed.getStatus()).isEqualTo(AlertStatus.FAILED);
-        assertThat(failed.getErrorMessage()).contains("Banco indisponível");
+        assertThat(alertCaptor.getValue()).isSameAs(alert);
+        assertThat(errorCaptor.getValue()).contains("Banco indisponível");
     }
 
     private static void verifyListener(AlertNotification saved, AlertNotification alert) {

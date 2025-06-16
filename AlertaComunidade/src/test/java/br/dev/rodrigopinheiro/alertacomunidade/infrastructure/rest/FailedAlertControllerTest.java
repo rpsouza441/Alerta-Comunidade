@@ -4,7 +4,6 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFo
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllFailedAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessFailedAlertUseCasePort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -66,7 +65,10 @@ class FailedAlertControllerTest {
         when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(page);
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content[0].id").value(1L))
+                .andExpect(jsonPath("$.content[0].message").value("Erro"))
+                .andExpect(jsonPath("$.content[0].origin").value("INMET"));
     }
 
     @Test
@@ -77,7 +79,9 @@ class FailedAlertControllerTest {
 
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("[]"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content").isEmpty());
     }
 
     @Test
