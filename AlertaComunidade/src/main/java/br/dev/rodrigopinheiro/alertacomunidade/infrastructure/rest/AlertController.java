@@ -43,11 +43,11 @@ public class AlertController {
     @GetMapping
     public Page<AlertResponseDTO> listAlerts(
             @PageableDefault(
-                        size = 10,
-                        sort = "createdAt",
-                        direction = Sort.Direction.DESC)
-                        Pageable pageable
-                        ) {
+                    size = 10,
+                    sort = "createdAt",
+                    direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
         logger.info("GET /alerts");
         return getAllAlertsUseCase.getAllAlerts(pageable);
     }
@@ -56,6 +56,6 @@ public class AlertController {
     public ResponseEntity<AlertResponseDTO> getAlertById(@PathVariable Long id) {
         logger.info("GET /alerts - ID={}", id);
         AlertResponseDTO alertResponseDTO = getAlertByIdUseCase.getAlertById(id);
-        return  ResponseEntity.ok(alertResponseDTO);
+        return ResponseEntity.ok(alertResponseDTO);
     }
 }
