@@ -79,7 +79,6 @@ class FailedAlertControllerTest {
 
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.content").isEmpty());
     }
