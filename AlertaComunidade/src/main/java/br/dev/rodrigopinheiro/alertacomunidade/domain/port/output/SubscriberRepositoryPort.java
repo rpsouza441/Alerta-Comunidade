@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface SubscriberRepositoryPort {
     Subscriber save(Subscriber subscriber);
@@ -14,5 +15,6 @@ public interface SubscriberRepositoryPort {
     Optional<Subscriber> findById(Long id);
     List<Subscriber> findAll();
     Page<Subscriber> findAll(Pageable pageable);
+    Stream<Subscriber> streamAllActive();
 
 }

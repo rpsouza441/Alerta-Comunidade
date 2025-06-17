@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 @Component
 public class SubscriberNotifier {
@@ -30,29 +31,32 @@ public class SubscriberNotifier {
         String formattedMessage = "Instituto "+ alert.getOrigin() + " Alerta: " + alert.getMessage();
         String subject = "Alerta: " + alert.getAlertType();
 
-        for (Subscriber s : subscriberRepository.findAll()) {
-            String email = s.getEmail();
-            String phone = s.getPhoneNumber();
 
-            if (isValidEmail(email)) {
-                try {
-                    notificationService.sendEmail(email, subject, formattedMessage);
-                } catch (Exception e) {
-                    logger.error("Falha ao enviar email para {}: {}", email, e.getMessage());
-                }
-            } else {
-                logger.warn("Email ausente ou inválido para subscriber ID={}", s.getId());
-            }
+        try (Stream<Subscriber> subscribers = subscriberRepository.streamAllActive()){
+            subscribers.forEach(s -> {
+                String email = s.getEmail();
+                String phone = s.getPhoneNumber();
 
-            if (isValidPhone(phone)) {
-                try {
-                    notificationService.sendSms(phone, formattedMessage);
-                } catch (Exception e) {
-                    logger.error("Falha ao enviar sms para {}: {}", phone, e.getMessage());
+                if (isValidEmail(email)) {
+                    try {
+                        notificationService.sendEmail(email, subject, formattedMessage);
+                    } catch (Exception e) {
+                        logger.error("Falha ao enviar email para {}: {}", email, e.getMessage());
+                    }
+                } else {
+                    logger.warn("Email ausente ou inválido para subscriber ID={}", s.getId());
                 }
-            } else {
-                logger.warn("Telefone ausente ou inválido para subscriber ID={}", s.getId());
-            }
+
+                if (isValidPhone(phone)) {
+                    try {
+                        notificationService.sendSms(phone, formattedMessage);
+                    } catch (Exception e) {
+                        logger.error("Falha ao enviar sms para {}: {}", phone, e.getMessage());
+                    }
+                } else {
+                    logger.warn("Telefone ausente ou inválido para subscriber ID={}", s.getId());
+                }
+            });
         }
     }
 

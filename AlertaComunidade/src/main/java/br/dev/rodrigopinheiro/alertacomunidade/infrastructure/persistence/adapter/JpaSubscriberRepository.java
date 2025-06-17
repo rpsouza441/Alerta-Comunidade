@@ -3,12 +3,14 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapt
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataSubscriberRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Component
 public class JpaSubscriberRepository implements SubscriberRepositoryPort {
@@ -41,5 +43,11 @@ public class JpaSubscriberRepository implements SubscriberRepositoryPort {
     @Override
     public Page<Subscriber> findAll(Pageable pageable) {
         return delegate.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Stream<Subscriber> streamAllActive() {
+        return delegate.findAllByActiveIsTrue();
     }
 }
