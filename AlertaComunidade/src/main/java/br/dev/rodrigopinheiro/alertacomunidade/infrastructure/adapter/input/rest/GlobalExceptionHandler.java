@@ -1,5 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest;
 
+import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.DeadLetterMessageNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.SubscriberAlreadyExistsException;
@@ -103,6 +104,21 @@ public class GlobalExceptionHandler {
                         LocalDateTime.now(),
                         HttpStatus.NOT_FOUND.value(),
                         "Alerta com falha não encontrado",
+                        e.getMessage(),
+                        request.getRequestURI(),
+                        null,
+                        MDC.get("traceId")
+                )
+        );
+    }
+    @ExceptionHandler(DeadLetterMessageNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> deadLetterNotFound(DeadLetterMessageNotFoundException e, HttpServletRequest request) {
+        logger.warn("Dead letter not found - Error: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ApiErrorResponse(
+                        LocalDateTime.now(),
+                        HttpStatus.NOT_FOUND.value(),
+                        "Dead Letter Not Found",
                         e.getMessage(),
                         request.getRequestURI(),
                         null,

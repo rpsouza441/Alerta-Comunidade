@@ -1,6 +1,7 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest;
 
 
+import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.DeadLetterMessageNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.dto.ApiErrorResponse;
@@ -76,6 +77,20 @@ public class GlobalExceptionHandlerTest {
         assertThat(body.error()).isEqualTo("Campo inválido no JSON");
         assertThat(body.message()).isEqualTo("Campo não reconhecido: campoInvalido");
         assertThat(body.path()).isEqualTo("/alerts");
+    }
+    @Test
+    void shouldHandleDeadLetterMessageNotFoundException() {
+        long id = 10L;
+        DeadLetterMessageNotFoundException ex = new DeadLetterMessageNotFoundException(id);
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        Mockito.when(request.getRequestURI()).thenReturn("/dead-letters/" + id);
+
+        ResponseEntity<ApiErrorResponse> response = handler.deadLetterNotFound(ex, request);
+        ApiErrorResponse body = castBody(response);
+
+        assertThat(body.status()).isEqualTo(404);
+        assertThat(body.error()).isEqualTo("Dead Letter Not Found");
+        assertThat(body.message()).isEqualTo("Dead letter message ID " + id + " not found");
     }
 
     @Test
