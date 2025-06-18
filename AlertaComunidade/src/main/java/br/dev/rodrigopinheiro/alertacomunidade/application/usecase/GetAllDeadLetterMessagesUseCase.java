@@ -2,7 +2,7 @@ package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllQuarantinedMessagesInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.DeadLetterMessageRepositoryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,13 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GetAllQuarantinedMessagesUseCase implements GetAllQuarantinedMessagesInputPort {
+public class GetAllDeadLetterMessagesUseCase implements GetAllQuarantinedMessagesInputPort {
 
-    private static final Logger logger = LoggerFactory.getLogger(GetAllQuarantinedMessagesUseCase.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetAllDeadLetterMessagesUseCase.class);
 
-    private final QuarantinedMessageRepositoryPort repository;
+    private final DeadLetterMessageRepositoryPort repository;
 
-    public GetAllQuarantinedMessagesUseCase(QuarantinedMessageRepositoryPort repository) {
+    public GetAllDeadLetterMessagesUseCase(DeadLetterMessageRepositoryPort repository) {
         this.repository = repository;
     }
 

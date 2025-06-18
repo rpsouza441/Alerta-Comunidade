@@ -1,6 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllQuarantinedMessagesInputPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @WebMvcTest(DeadLetterController.class)
-@Import(QuarantinedMessageControllerTest.TestConfig.class)
-class QuarantinedMessageControllerTest {
+@Import(DeadLetterMessageControllerTest.TestConfig.class)
+class DeadLetterMessageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,10 +44,10 @@ class QuarantinedMessageControllerTest {
 
     @Test
     void shouldReturnMessages() throws Exception {
-        QuarantinedMessage msg = new QuarantinedMessage();
+        DeadLetterMessage msg = new DeadLetterMessage();
         msg.setId(1L);
         PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<QuarantinedMessage> page = new PageImpl<>(List.of(msg), pageRequest, 1);
+        Page<DeadLetterMessage> page = new PageImpl<>(List.of(msg), pageRequest, 1);
         when(getAllUseCase.getAll(pageRequest)).thenReturn(page);
 
         mockMvc.perform(get("/dead-letters").param("page", "0").param("size", "10"))

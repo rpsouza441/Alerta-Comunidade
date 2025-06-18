@@ -1,18 +1,18 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataQuarantinedMessageRepository;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.DeadLetterMessageRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataDeadLetterMessageRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JpaQuarantinedMessageRepository implements QuarantinedMessageRepositoryPort {
+public class JpaDeadLetterMessageRepository implements DeadLetterMessageRepositoryPort {
 
-    private final SpringDataQuarantinedMessageRepository delagate;
+    private final SpringDataDeadLetterMessageRepository delagate;
 
-    public JpaQuarantinedMessageRepository(SpringDataQuarantinedMessageRepository delagate) {
+    public JpaDeadLetterMessageRepository(SpringDataDeadLetterMessageRepository delagate) {
         this.delagate = delagate;
     }
 

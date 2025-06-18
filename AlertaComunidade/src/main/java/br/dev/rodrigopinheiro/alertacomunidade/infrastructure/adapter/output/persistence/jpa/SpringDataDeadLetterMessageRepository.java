@@ -3,5 +3,5 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.pe
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SpringDataQuarantinedMessageRepository extends JpaRepository<DeadLetterMessage, Long> {
+public interface SpringDataDeadLetterMessageRepository extends JpaRepository<DeadLetterMessage, Long> {
 }
