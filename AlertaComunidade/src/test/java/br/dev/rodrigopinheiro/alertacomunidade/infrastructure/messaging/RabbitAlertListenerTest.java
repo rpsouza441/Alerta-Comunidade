@@ -7,7 +7,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessFailedAlertInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.notification.SubscriberNotifier;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.BackupStoragePort;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging.RabbitAlertListener;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.notification.SubscriberNotifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -19,8 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RabbitAlertListenerTest {
@@ -34,6 +35,8 @@ public class RabbitAlertListenerTest {
     @Mock
     private SubscriberNotifier subscriberNotifier;
 
+    @Mock
+    private BackupStoragePort backupStoragePort;
 
     @InjectMocks
     private RabbitAlertListener listener;
@@ -140,7 +143,32 @@ public class RabbitAlertListenerTest {
         // then
         verify(processFailedAlertUseCasePort)
                 .execute(alertCaptor.capture(), errorCaptor.capture());
+        verify(backupStoragePort, never()).save(any(), any());
 
+        assertThat(alertCaptor.getValue()).isSameAs(alert);
+        assertThat(errorCaptor.getValue()).contains("Banco indisponível");
+    }
+
+    @Test
+    void shouldBackupAlertWhenParkingLotFails() {
+        // given
+        AlertNotification alert = createAlert(
+                99L,
+                "Falha crítica",
+                "Sistema",
+                AlertType.CRIME,
+                AlertStatus.RECEIVED
+        );
+
+        AlertProcessingException exception = new AlertProcessingException("Banco indisponível");
+        doThrow(new RuntimeException("DLQ down"))
+                .when(processFailedAlertUseCasePort).execute(any(), any());
+
+        // when
+        listener.recover(exception, alert);
+
+        // then
+        verify(backupStoragePort).save(errorCaptor.capture(), alertCaptor.capture());
         assertThat(alertCaptor.getValue()).isSameAs(alert);
         assertThat(errorCaptor.getValue()).contains("Banco indisponível");
     }
