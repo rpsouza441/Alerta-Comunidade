@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;

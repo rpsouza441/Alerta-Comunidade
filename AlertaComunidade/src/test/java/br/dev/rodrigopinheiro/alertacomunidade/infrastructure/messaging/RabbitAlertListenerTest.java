@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
@@ -9,7 +9,7 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositor
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessFailedAlertInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.BackupStoragePort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging.RabbitAlertListener;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.notification.SubscriberNotifier;
+import br.dev.rodrigopinheiro.alertacomunidade.application.service.SubscriberNotifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
