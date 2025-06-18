@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa;
 
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
