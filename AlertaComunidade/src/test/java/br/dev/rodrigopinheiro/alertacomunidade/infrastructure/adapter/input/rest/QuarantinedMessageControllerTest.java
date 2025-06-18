@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
-@WebMvcTest(QuarantinedMessageController.class)
+@WebMvcTest(DeadLetterController.class)
 @Import(QuarantinedMessageControllerTest.TestConfig.class)
 class QuarantinedMessageControllerTest {
 
@@ -50,7 +50,7 @@ class QuarantinedMessageControllerTest {
         Page<QuarantinedMessage> page = new PageImpl<>(List.of(msg), pageRequest, 1);
         when(getAllUseCase.getAll(pageRequest)).thenReturn(page);
 
-        mockMvc.perform(get("/dlq").param("page", "0").param("size", "10"))
+        mockMvc.perform(get("/dead-letters").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content[0].id").value(1L));

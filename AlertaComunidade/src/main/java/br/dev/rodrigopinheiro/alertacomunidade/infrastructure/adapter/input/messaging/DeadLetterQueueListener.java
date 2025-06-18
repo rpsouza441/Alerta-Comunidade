@@ -1,7 +1,7 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessQuarantinedMessageInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.dto.QuarantinedMessageRequestDTO;
+import br.dev.rodrigopinheiro.alertacomunidade.dto.DeadLetterRequestDTO;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class DeadLetterQueueListener {
         var headers = failedMessage.getMessageProperties().getHeaders();
         try {
             logger.error("Payload: {}\nHeaders: {}", messageBody, headers);
-            QuarantinedMessageRequestDTO dto = new QuarantinedMessageRequestDTO(queue, messageBody, headers.toString());
+            DeadLetterRequestDTO dto = new DeadLetterRequestDTO(queue, messageBody, headers.toString());
             quarantineUseCase.execute(dto);
         } catch (Throwable t) {
             logger.error("ERRO CRÍTICO no consumidor da DLQ ao tentar tratar a mensagem: {}", failedMessage.getMessageProperties().getMessageId(), t);

@@ -4,8 +4,10 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import com.twilio.exception.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
@@ -39,7 +41,7 @@ public class SubscriberNotifier {
                 if (isValidEmail(email)) {
                     try {
                         notificationService.sendEmail(email, subject, formattedMessage);
-                    } catch (Exception e) {
+                    } catch (MailException e) {
                         logger.error("Falha ao enviar email para {}: {}", email, e.getMessage());
                     }
                 } else {
@@ -49,7 +51,7 @@ public class SubscriberNotifier {
                 if (isValidPhone(phone)) {
                     try {
                         notificationService.sendSms(phone, formattedMessage);
-                    } catch (Exception e) {
+                    } catch (ApiException e) {
                         logger.error("Falha ao enviar sms para {}: {}", phone, e.getMessage());
                     }
                 } else {

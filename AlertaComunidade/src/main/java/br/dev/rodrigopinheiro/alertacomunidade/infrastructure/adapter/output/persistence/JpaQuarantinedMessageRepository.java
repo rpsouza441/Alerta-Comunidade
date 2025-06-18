@@ -1,6 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataQuarantinedMessageRepository;
 import org.springframework.data.domain.Page;
@@ -17,12 +17,12 @@ public class JpaQuarantinedMessageRepository implements QuarantinedMessageReposi
     }
 
     @Override
-    public QuarantinedMessage save(QuarantinedMessage quarantinedMessage) {
-        return delagate.save(quarantinedMessage);
+    public DeadLetterMessage save(DeadLetterMessage deadLetterMessage) {
+        return delagate.save(deadLetterMessage);
     }
 
     @Override
-    public Page<QuarantinedMessage> findAll(Pageable pageable) {
+    public Page<DeadLetterMessage> findAll(Pageable pageable) {
         return delagate.findAll(pageable);
     }
 }

@@ -1,6 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.application.usecase;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllQuarantinedMessagesInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class GetAllQuarantinedMessagesUseCase implements GetAllQuarantinedMessag
 
 
     @Override
-    public Page<QuarantinedMessage> getAll(Pageable pageable) {
+    public Page<DeadLetterMessage> getAll(Pageable pageable) {
         logger.info("Executando caso de uso: GetAllQuarantinedMessages");
         return repository.findAll(pageable);    }
 }
