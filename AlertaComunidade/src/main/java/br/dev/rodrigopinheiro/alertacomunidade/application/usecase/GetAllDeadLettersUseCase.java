@@ -24,6 +24,6 @@ public class GetAllDeadLettersUseCase implements GetAllDeadLettersInputPort {
 
     @Override
     public Page<DeadLetterMessage> getAll(DeadLetterStatus status, Pageable pageable) {
-        logger.info("Executando caso de uso: GetAllQuarantinedMessages");
+        logger.info("Executando caso de uso: GetAllDeadLetterMessages");
         return repository.findAllByStatus(status, pageable);    }
 }

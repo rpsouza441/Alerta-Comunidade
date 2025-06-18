@@ -24,7 +24,7 @@ public class ProcessDeadLetterUseCase implements ProcessDeadLetterInputPort {
         message.setPayload(dto.paylod());
         message.setHeaders(dto.headers());
         DeadLetterMessage saved = repository.save(message);
-        logger.debug("Quarantined message persisted. id={}", saved.getId());
+        logger.debug("Dead letter message persisted. id={}", saved.getId());
         return saved;
     }
 

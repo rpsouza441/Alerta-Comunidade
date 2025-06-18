@@ -38,7 +38,7 @@ private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
                     page = 0, size = 10, direction = Sort.Direction.DESC
             ) Pageable pageable
     ){
-        return getAllDeadLettersInputPort.findByStatus(DeadLetterStatus.REPROCESSED, pageable);
+        return getAllDeadLettersInputPort.getAll(DeadLetterStatus.REPROCESSED, pageable);
     }
 
     @PostMapping("/{id}/reprocess")
