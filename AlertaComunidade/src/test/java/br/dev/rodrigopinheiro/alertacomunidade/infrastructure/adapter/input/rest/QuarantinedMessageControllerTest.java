@@ -2,7 +2,6 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.res
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllQuarantinedMessagesInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest.QuarantinedMessageController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

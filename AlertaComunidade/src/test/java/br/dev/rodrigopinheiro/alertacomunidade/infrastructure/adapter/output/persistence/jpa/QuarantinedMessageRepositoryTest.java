@@ -2,7 +2,6 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.pe
 
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataQuarantinedMessageRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

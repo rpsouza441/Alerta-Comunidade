@@ -7,7 +7,6 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetSubscriberBy
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessSubscriberInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.RegisterSubscriberInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.dto.SubscriberResponseDTO;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest.SubscriberController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

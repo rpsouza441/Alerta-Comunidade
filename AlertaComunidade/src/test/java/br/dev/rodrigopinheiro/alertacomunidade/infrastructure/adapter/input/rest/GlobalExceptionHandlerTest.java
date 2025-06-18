@@ -4,7 +4,6 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.res
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.dto.ApiErrorResponse;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest.GlobalExceptionHandler;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;

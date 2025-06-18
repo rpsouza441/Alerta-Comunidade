@@ -4,7 +4,6 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFo
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllFailedAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessFailedAlertUseCasePort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest.FailedAlertController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

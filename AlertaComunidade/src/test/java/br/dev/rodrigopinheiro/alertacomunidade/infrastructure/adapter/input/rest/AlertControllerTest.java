@@ -3,7 +3,6 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.res
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAlertByIdInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllAlertsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessAlertInputPort;
