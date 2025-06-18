@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class DeadLetterQueueListener {
 
     private static final Logger logger = LoggerFactory.getLogger(DeadLetterQueueListener.class);
-    private final ProcessDeadLetterInputPort quarantineUseCase;
+    private final ProcessDeadLetterInputPort processUseCase;
 
     public DeadLetterQueueListener(ProcessDeadLetterInputPort deadLettersInputPort) {
-        this.quarantineUseCase = deadLettersInputPort;
+        this.processUseCase = deadLettersInputPort;
     }
 
     @RabbitListener(queues = RabbitMQConfig.DEAD_CRITICAL_QUEUE)
@@ -37,7 +37,7 @@ public class DeadLetterQueueListener {
         try {
             logger.error("Payload: {}\nHeaders: {}", messageBody, headers);
             DeadLetterRequestDTO dto = new DeadLetterRequestDTO(queue, messageBody, headers.toString());
-            quarantineUseCase.execute(dto);
+            processUseCase.execute(dto);
         } catch (Throwable t) {
             logger.error("ERRO CRÍTICO no consumidor da DLQ ao tentar tratar a mensagem: {}", failedMessage.getMessageProperties().getMessageId(), t);
             logger.error("Payload: {}\nHeaders: {}", messageBody, headers);
