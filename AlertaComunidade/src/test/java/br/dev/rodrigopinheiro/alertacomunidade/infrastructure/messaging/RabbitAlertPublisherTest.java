@@ -3,6 +3,7 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.AlertType;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging.RabbitAlertPublisher;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

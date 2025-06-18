@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.messaging;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertPublisherPort;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;

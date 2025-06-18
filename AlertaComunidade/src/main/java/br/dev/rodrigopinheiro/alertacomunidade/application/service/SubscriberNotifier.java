@@ -1,5 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.notification;
-
+package br.dev.rodrigopinheiro.alertacomunidade.application.service;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;

@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.rest;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.rest;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.FailedAlertNotFoundException;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.ResourceNotFoundException;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

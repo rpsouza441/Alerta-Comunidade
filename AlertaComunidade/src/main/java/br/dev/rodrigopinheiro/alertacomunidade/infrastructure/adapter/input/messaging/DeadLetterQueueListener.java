@@ -1,8 +1,6 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.messaging;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessQuarantinedMessageInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
 import br.dev.rodrigopinheiro.alertacomunidade.dto.QuarantinedMessageRequestDTO;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import org.slf4j.Logger;

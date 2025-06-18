@@ -7,6 +7,7 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.notification.SubscriberNotifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;

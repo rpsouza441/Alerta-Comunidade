@@ -1,4 +1,4 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.notification;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.notification;
 
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
