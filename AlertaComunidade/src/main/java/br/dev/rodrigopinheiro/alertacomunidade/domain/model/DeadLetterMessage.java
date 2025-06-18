@@ -1,12 +1,14 @@
 package br.dev.rodrigopinheiro.alertacomunidade.domain.model;
 
+import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.DeadLetterStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name ="dead_letter_messages")
-public class DeadLetterMessage  {
+@Table(name = "dead_letter_messages")
+public class DeadLetterMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +25,24 @@ public class DeadLetterMessage  {
     @Column(name = "headers", nullable = false)
     private String headers;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private DeadLetterStatus status;
+
     @Column(name = "received_at", nullable = false, updatable = false)
     private LocalDateTime receivedAt;
+
+    public DeadLetterMessage() {
+    }
+
 
     @PrePersist
     public void prePersist() {
         this.receivedAt = LocalDateTime.now();
-    }
-
-    public DeadLetterMessage() {
+        if (this.status == null) {
+            this.status = DeadLetterStatus.PENDING;
+        }
     }
 
     public Long getId() {
@@ -72,4 +83,13 @@ public class DeadLetterMessage  {
 
     public void setReceivedAt(LocalDateTime receivedAt) {
         this.receivedAt = receivedAt;
-    }}
+    }
+
+    public DeadLetterStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(@NotNull DeadLetterStatus status) {
+        this.status = status;
+    }
+}

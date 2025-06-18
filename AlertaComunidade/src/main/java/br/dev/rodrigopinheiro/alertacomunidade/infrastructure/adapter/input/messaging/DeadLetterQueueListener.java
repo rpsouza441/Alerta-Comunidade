@@ -1,6 +1,6 @@
 package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.messaging;
 
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessQuarantinedMessageInputPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessDeadLetterInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.dto.DeadLetterRequestDTO;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.config.RabbitMQConfig;
 import org.slf4j.Logger;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class DeadLetterQueueListener {
 
     private static final Logger logger = LoggerFactory.getLogger(DeadLetterQueueListener.class);
-    private final ProcessQuarantinedMessageInputPort quarantineUseCase;
+    private final ProcessDeadLetterInputPort quarantineUseCase;
 
-    public DeadLetterQueueListener(ProcessQuarantinedMessageInputPort quarantineUseCase) {
-        this.quarantineUseCase = quarantineUseCase;
+    public DeadLetterQueueListener(ProcessDeadLetterInputPort deadLettersInputPort) {
+        this.quarantineUseCase = deadLettersInputPort;
     }
 
     @RabbitListener(queues = RabbitMQConfig.DEAD_CRITICAL_QUEUE)
