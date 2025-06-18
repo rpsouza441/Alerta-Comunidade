@@ -1,9 +1,9 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence;
 
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataAlertRepository;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataAlertRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;

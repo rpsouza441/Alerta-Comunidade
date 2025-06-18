@@ -1,8 +1,8 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.QuarantinedMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.QuarantinedMessageRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataQuarantinedMessageRepository;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataQuarantinedMessageRepository;
 import org.springframework.stereotype.Component;
 
 @Component

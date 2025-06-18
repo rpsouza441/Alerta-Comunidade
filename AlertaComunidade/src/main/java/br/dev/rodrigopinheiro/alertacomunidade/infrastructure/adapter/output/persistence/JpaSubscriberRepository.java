@@ -1,8 +1,8 @@
-package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.adapter;
+package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence;
 
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.persistence.jpa.SpringDataSubscriberRepository;
+import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.output.persistence.jpa.SpringDataSubscriberRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
