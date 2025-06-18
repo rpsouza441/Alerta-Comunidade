@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name ="qurantined_messages")
-public class QuarantinedMessage {
+@Table(name ="dead_letter_messages")
+public class DeadLetterMessage  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class QuarantinedMessage {
         this.receivedAt = LocalDateTime.now();
     }
 
-    public QuarantinedMessage() {
+    public DeadLetterMessage() {
     }
 
     public Long getId() {
