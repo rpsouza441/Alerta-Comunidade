@@ -6,11 +6,9 @@ import br.dev.rodrigopinheiro.alertacomunidade.domain.exception.AlertProcessingE
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.AlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.FailedAlertNotification;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.Subscriber;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.PersistBackupsInputPort;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ProcessFailedAlertInputPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.AlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.FailedAlertRepositoryPort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.NotificationServicePort;
-import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.SubscriberRepositoryPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.output.*;
 import br.dev.rodrigopinheiro.alertacomunidade.infrastructure.notification.SubscriberNotifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +30,20 @@ public class RabbitAlertListener {
     private final AlertRepositoryPort alertRepository;
     private final ProcessFailedAlertInputPort processFailedAlertUseCasePort;
     private final SubscriberNotifier subscriberNotifier;
+    private final BackupStoragePort backupStoragePort;
 
     public RabbitAlertListener(AlertRepositoryPort repository,
-                           ProcessFailedAlertInputPort processFailedAlertUseCasePort,
-                               SubscriberNotifier subscriberNotifier) {
+                               ProcessFailedAlertInputPort processFailedAlertUseCasePort,
+                               SubscriberNotifier subscriberNotifier,
+                               BackupStoragePort backupStoragePort) {
         this.alertRepository = repository;
         this.processFailedAlertUseCasePort = processFailedAlertUseCasePort;
         this.subscriberNotifier = subscriberNotifier;
+        this.backupStoragePort = backupStoragePort;
     }
 
     @Retryable(
-            retryFor = { AlertProcessingException.class },
+            retryFor = {AlertProcessingException.class},
             maxAttempts = 3,
             backoff = @Backoff(delay = 2000, multiplier = 2)
     )
@@ -61,7 +62,7 @@ public class RabbitAlertListener {
     }
 
     @Retryable(
-            retryFor = { AlertProcessingException.class },
+            retryFor = {AlertProcessingException.class},
             maxAttempts = 3,
             backoff = @Backoff(delay = 2000, multiplier = 2)
     )
@@ -78,8 +79,9 @@ public class RabbitAlertListener {
             throw new AlertProcessingException("Erro ao processar alerta", e);
         }
     }
+
     @Retryable(
-            retryFor = { AlertProcessingException.class },
+            retryFor = {AlertProcessingException.class},
             maxAttempts = 3,
             backoff = @Backoff(delay = 2000, multiplier = 2)
     )
@@ -97,7 +99,13 @@ public class RabbitAlertListener {
 
     @Recover
     public void recover(AlertProcessingException e, AlertNotification alert) {
-        processFailedAlertUseCasePort.execute(alert, e.getMessage());
+        logger.error("RECUPERAÇÃO: Todas as tentativas falharam para o alerta. Movendo para a fila de Parking Lot.", e);
+        try {
+            processFailedAlertUseCasePort.execute(alert, e.getMessage());
+        } catch (Exception pubEx) {
+            logger.error("ERRO CRÍTICO: Falha ao mover alerta ID {} para a fila de Parking Lot.", alert.getId(), pubEx);
+            backupStoragePort.save(e.getMessage(), alert);
+        }
     }
 
 
