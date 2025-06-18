@@ -43,13 +43,7 @@ private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
 
     @PostMapping("/{id}/reprocess")
     public ResponseEntity<String> reprocess(@PathVariable Long id){
-        try {
-            reprocessDeadLetterInputPort.execute(id);
-            return ResponseEntity.ok("Mensagem reenviada com sucesso para a fila");
-        }catch (DeadLetterMessageNotFoundException e ){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao reprocessar mensagem.");
-        }
+        reprocessDeadLetterInputPort.execute(id);
+        return ResponseEntity.ok("Mensagem reenviada com sucesso para a fila");
     }
 }
