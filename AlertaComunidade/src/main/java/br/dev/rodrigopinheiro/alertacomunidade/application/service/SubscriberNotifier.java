@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -28,6 +29,7 @@ public class SubscriberNotifier {
         this.notificationService = notificationService;
     }
 
+    @Transactional(readOnly = true)
     public void notifySubscribers(AlertNotification alert) {
         String formattedMessage = "Instituto "+ alert.getOrigin() + " Alerta: " + alert.getMessage();
         String subject = "Alerta: " + alert.getAlertType();
