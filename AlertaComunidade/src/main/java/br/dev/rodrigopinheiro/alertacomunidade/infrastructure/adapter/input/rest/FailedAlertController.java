@@ -37,14 +37,8 @@ public class FailedAlertController {
 
     @PostMapping("/{id}/reprocess")
     public ResponseEntity<String> reprocess(@PathVariable Long id) {
-        try {
-            reprocessFailedAlertUseCasePort.execute(id);
-            return ResponseEntity.ok("Alerta reenviado com sucesso para a fila");
-        } catch (FailedAlertNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao reprocessar alerta");
-        }
+        reprocessFailedAlertUseCasePort.execute(id);
+        return ResponseEntity.ok("Alerta reenviado com sucesso para a fila");
 
     }
 
