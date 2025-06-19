@@ -25,6 +25,8 @@ Central de notificações para emergências comunitárias construída em Spring 
    A aplicação ficará disponível em `http://localhost:8080`.
    O RabbitMQ pode ser acessado em `http://localhost:15672` (usuário/senha padrão: guest/guest).
    Ajustes de configuração podem ser realizados no arquivo `.env`.
+   Para servidores SMTP que exigem autenticação e STARTTLS (ex.: Gmail na porta 587),
+   defina `MAIL_SMTP_AUTH=true` e `MAIL_SMTP_STARTTLS_ENABLE=true`.
 
 ## Arquitetura e boas práticas
 
