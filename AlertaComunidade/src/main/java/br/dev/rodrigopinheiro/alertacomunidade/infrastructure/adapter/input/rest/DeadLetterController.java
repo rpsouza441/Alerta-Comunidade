@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dead-letters")
 public class DeadLetterController {
     private final GetAllDeadLettersInputPort getAllDeadLettersInputPort;
-private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
+    private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
 
     public DeadLetterController(GetAllDeadLettersInputPort getAllDeadLettersInputPort,
                                 ReprocessDeadLetterInputPort reprocessDeadLetterInputPort) {
@@ -28,7 +28,7 @@ private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
     @GetMapping
     public Page<DeadLetterMessage> listAll(
             @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC)
-            Pageable pageable){
+            Pageable pageable) {
         return getAllDeadLettersInputPort.getAll(DeadLetterStatus.PENDING, pageable);
     }
 
@@ -37,12 +37,12 @@ private final ReprocessDeadLetterInputPort reprocessDeadLetterInputPort;
             @PageableDefault(
                     page = 0, size = 10, direction = Sort.Direction.DESC
             ) Pageable pageable
-    ){
+    ) {
         return getAllDeadLettersInputPort.getAll(DeadLetterStatus.REPROCESSED, pageable);
     }
 
     @PostMapping("/{id}/reprocess")
-    public ResponseEntity<String> reprocess(@PathVariable Long id){
+    public ResponseEntity<String> reprocess(@PathVariable Long id) {
         reprocessDeadLetterInputPort.execute(id);
         return ResponseEntity.ok("Mensagem reenviada com sucesso para a fila");
     }
