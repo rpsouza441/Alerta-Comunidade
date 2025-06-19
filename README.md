@@ -37,6 +37,25 @@ Este projeto foi organizado seguindo conceitos de design que facilitam a manuten
 - **DRY (Don't Repeat Yourself)**: mapeadores e classes utilitárias evitam duplicação de código ao converter entidades para DTOs e vice-versa.
 - **Separação de preocupações/Clean Architecture**: domínio, aplicação e infraestrutura estão isolados em módulos próprios, facilitando testes e novas implementações.
 
+## Arquiteturas utilizadas
+
+- Hexagonal/Ports and Adapters
+- Clean Architecture
+- Domain-Driven Design
+- Mensageria assíncrona com RabbitMQ (event-driven)
+
+## Frameworks e bibliotecas
+
+- Java 21
+- Spring Boot (Web, Validation, Data JPA, Mail, AOP, Actuator, Devtools, Retry)
+- Springdoc OpenAPI/Swagger
+- Spring Rabbit Stream (RabbitMQ)
+- Flyway para migrações de banco de dados
+- MariaDB e MySQL Connector/J
+- Twilio para envio de SMS
+- JUnit e H2 para testes
+- Docker e Docker Compose
+
 ## Licença
 
 Distribuído sob a licença [MIT](LICENSE).
