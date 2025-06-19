@@ -3,6 +3,7 @@ package br.dev.rodrigopinheiro.alertacomunidade.infrastructure.adapter.input.res
 import br.dev.rodrigopinheiro.alertacomunidade.domain.enums.DeadLetterStatus;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.model.DeadLetterMessage;
 import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.GetAllDeadLettersInputPort;
+import br.dev.rodrigopinheiro.alertacomunidade.domain.port.input.ReprocessDeadLetterInputPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,12 +36,25 @@ class DeadLetterControllerTest {
     @Qualifier("getAllDeadLetterUseCase")
     private GetAllDeadLettersInputPort getAllUseCase;
 
+    @Autowired
+    @Qualifier("reprocessDeadLetterUseCase")
+    private ReprocessDeadLetterInputPort reprocessDeadLetterUseCase;
+
     @TestConfiguration
     static class TestConfig {
         @Bean(name = "getAllDeadLetterUseCase")
-        public GetAllDeadLettersInputPort useCase() {
+        public GetAllDeadLettersInputPort getAllUseCase() {
             return mock(GetAllDeadLettersInputPort.class);
+
         }
+
+        @Bean(name = "reprocessDeadLetterUseCase")
+        public ReprocessDeadLetterInputPort reprocessDeadLetterUseCase() {
+            return mock(ReprocessDeadLetterInputPort.class);
+
+        }
+
+
     }
 
     @Test
@@ -56,5 +70,21 @@ class DeadLetterControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content[0].id").value(1L));
+    }
+
+    @Test
+    void shouldReturnProcessedMessages() throws Exception {
+        DeadLetterMessage msg = new DeadLetterMessage();
+        msg.setId(1L);
+        msg.setStatus(DeadLetterStatus.REPROCESSED);
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<DeadLetterMessage> page = new PageImpl<>(List.of(msg), pageRequest, 1);
+        when(getAllUseCase.getAll(DeadLetterStatus.REPROCESSED, pageRequest)).thenReturn(page);
+
+        mockMvc.perform(get("/dead-letters/processed").param("page", "0").param("size", "10"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content[0].id").value(1L))
+                .andExpect(jsonPath("$.content[0].status").value("REPROCESSED"));
     }
 }

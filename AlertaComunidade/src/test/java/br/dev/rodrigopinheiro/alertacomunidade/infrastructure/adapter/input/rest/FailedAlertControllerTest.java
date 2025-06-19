@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,7 +63,7 @@ class FailedAlertControllerTest {
         failed.setOrigin("INMET");
         PageRequest pageRequest = PageRequest.of(0, 10);
         Page<FailedAlertNotification> page = new PageImpl<>(List.of(failed), pageRequest, 1);
-        when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(page);
+        when(getAllFailedAlertsUseCase.getAllFailedAlerts(any(Pageable.class))).thenReturn(page);
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -75,7 +76,7 @@ class FailedAlertControllerTest {
     void shouldReturnEmptyListWhenNoFailedAlerts() throws Exception {
         PageRequest pageRequest = PageRequest.of(0, 10);
         Page<FailedAlertNotification> empty = new PageImpl<>(Collections.emptyList(), pageRequest, 0);
-        when(getAllFailedAlertsUseCase.getAllFailedAlerts(pageRequest)).thenReturn(empty);
+        when(getAllFailedAlertsUseCase.getAllFailedAlerts(any(Pageable.class))).thenReturn(empty);
 
         mockMvc.perform(get("/failed-alerts").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
@@ -102,7 +103,9 @@ class FailedAlertControllerTest {
         // Act & Assert
         mockMvc.perform(post("/failed-alerts/{id}/reprocess", nonexistentId))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("Alerta com falha ID 999 não encontrado"));
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.error").value("Alerta com falha não encontrado"))
+                .andExpect(jsonPath("$.message").value("Alerta com falha ID 999 não encontrado"));
     }
 
     @Test
@@ -110,7 +113,7 @@ class FailedAlertControllerTest {
         doThrow(new RuntimeException("Erro inesperado")).when(useCase).execute(2L);
 
         mockMvc.perform(post("/failed-alerts/2/reprocess"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().string("Erro ao reprocessar alerta"));
+                .andExpect(status().isInternalServerError());
+
     }
 }

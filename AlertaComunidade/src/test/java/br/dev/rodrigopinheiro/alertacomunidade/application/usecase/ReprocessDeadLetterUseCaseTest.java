@@ -31,7 +31,7 @@ class ReprocessDeadLetterUseCaseTest {
     void setUp() {
         repository = mock(DeadLetterRepositoryPort.class);
         publisher = mock(AlertPublisherPort.class);
-        mapper = new ObjectMapper();
+        mapper = new ObjectMapper().findAndRegisterModules();
         useCase = new ReprocessDeadLetterUseCase(repository, publisher, mapper);
     }
 
